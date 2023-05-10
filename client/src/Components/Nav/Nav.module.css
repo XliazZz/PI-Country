@@ -1,0 +1,15 @@
+.navBar {
+    display: flex;
+    align-items: center;
+    justify-content:space-between;
+    padding-right: 3%;
+    margin: 0px;
+}
+
+.navBar img {
+    margin-right: auto;
+    margin-top: 1%;
+    margin-left: 5%;
+    width: 16%;
+}
+

@@ -1,0 +1,63 @@
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-family: "Archivo";
+    margin: 0;
+}
+
+.card{
+    height: 500px;
+    width: 600px;
+    background-color: rgb(27, 27, 27);
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+.imagen{
+    width: 95%;
+    height: 336px;
+    border-radius: 3px;
+    transition: .5s;
+    padding: 15px;
+}
+
+.intro{
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    position: relative;
+    bottom: 0;
+    background-color: rgb(27, 27, 27);
+    color: white;
+    transition: .5s;
+}
+
+h1{
+    font-size: 40px;
+}
+
+p{
+    font-size: 28px;
+    visibility: hidden;
+    opacity: 0;
+    margin: 5px;
+}
+
+.card:hover{
+    cursor: pointer;
+}
+
+.card:hover .intro{
+    height: 220px;
+    bottom: 10%;
+    color: black;
+    background-color: #ecfeffd1;
+}
+
+.card:hover p{
+    opacity: 1;
+    visibility: visible;
+}
+

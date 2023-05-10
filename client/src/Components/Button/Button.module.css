@@ -1,0 +1,11 @@
+.Button{
+    border-left: 2px solid white;
+    border-right: 2px solid white;
+    border-bottom: none;
+    border-top: none;
+    background: none;
+    font-family:'Archivo';
+    font-size: 100%;
+    margin: 10px;
+    color: gray;
+}
