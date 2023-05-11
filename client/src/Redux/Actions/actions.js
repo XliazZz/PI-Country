@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { SEARCH_COUNTRY_REQUEST, SEARCH_COUNTRY_SUCCESS, SEARCH_COUNTRY_ERROR,
-    COUNTRY_REQUEST, COUNTRY_SUCCESS, COUNTRY_ERROR} from "../Action-Types/action-types";
+    COUNTRY_REQUEST, COUNTRY_SUCCESS, COUNTRY_ERROR, 
+    ORDER_BY_LETTER, ORDER_BY_POPULATION} from "../Action-Types/action-types";
 
 // SearchBar
 export const searchRequest = () => {
@@ -64,6 +65,21 @@ export const getAllCountries = () => {
             dispatch(countrySuccess(countries));
         } catch (error) {
             dispatch(countryError( error.message ))
-        }
-    }
-}
+        };
+    };
+};
+
+//Order
+export const orderByLetter = (order) => {
+    return {
+        type: ORDER_BY_LETTER,
+        payload: order,
+    };
+};
+
+export const orderByPopulation = (order) => {
+    return {
+        type: ORDER_BY_POPULATION,
+        payload: order,
+    };
+};

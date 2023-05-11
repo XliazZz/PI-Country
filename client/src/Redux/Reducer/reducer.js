@@ -1,5 +1,6 @@
 import { SEARCH_COUNTRY_ERROR, SEARCH_COUNTRY_REQUEST, SEARCH_COUNTRY_SUCCESS,
-        COUNTRY_REQUEST, COUNTRY_SUCCESS, COUNTRY_ERROR} from "../Action-Types/action-types";
+        COUNTRY_REQUEST, COUNTRY_SUCCESS, COUNTRY_ERROR, 
+        ORDER_BY_LETTER, ORDER_BY_POPULATION} from "../Action-Types/action-types";
 
 const initialState = {
     error: null,
@@ -57,6 +58,24 @@ const rootReducer = (state = initialState, action) => {
                 error: action.payload,
                 success: false,
             }
+
+            case ORDER_BY_LETTER:
+                const copyAllCountries = [...state.allCountries];
+                return {
+                    ...state,
+                    allCountries: action.payload === "A"
+                        ? copyAllCountries.sort((a, b) => a.name.localeCompare(b.name))
+                        : copyAllCountries.sort((a,b) => b.name.localeCompare(a.name))
+                };
+            case ORDER_BY_POPULATION:
+                const copyAllCountriesPopulation = [...state.allCountries];
+                return {
+                    ...state,
+                    allCountries: action.payload === "D"
+                        ? copyAllCountriesPopulation.sort((a, b) => a.population - b.population)
+                        : copyAllCountriesPopulation.sort((a,b) => b.population - a.population)
+                };
+            
 
         default: 
         return{...state};

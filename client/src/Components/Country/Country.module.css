@@ -61,3 +61,16 @@ p{
     visibility: visible;
 }
 
+.closeButton{
+    background:none;
+    color: white;
+    font-size: 50px;
+    border: none;
+    margin-bottom: 3%;
+    cursor: pointer;
+
+}
+
+.noScroll {
+    overflow: hidden;
+}

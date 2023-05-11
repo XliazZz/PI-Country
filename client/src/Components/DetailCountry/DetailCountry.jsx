@@ -1,10 +1,11 @@
 import { useParams } from "react-router";
 import { useState, useEffect } from "react";
 import axios from 'axios';
+import style from './DetailCountry.module.css'
 
-const DetailCountry = () => {
+const DetailCountry = ({id}) => {
     
-    const { id } = useParams();
+    // const { id } = useParams();
     const [country, setCountry] = useState({});
     
     useEffect(() => {
@@ -25,17 +26,26 @@ const DetailCountry = () => {
         return setCountry({});
     }, [id]);
 
+
+    const renderActivities = (activities) => {
+        return activities && activities.length > 0
+        ? `It is also known for its activities such as ${activities.map(activity => activity.name).join(', ')}` 
+        : ''; 
+    }
+
     return(
-        <div>
-            <img src={country.flags} alt="" />
-            <h1>{country.name}</h1>
-            <h2>{country.id}</h2>
-            <h2>{country.continents}</h2>
-            <h2>{country.capital}</h2>
-            <h2>{country.subregion}</h2>
-            <h2>{country.area}</h2>
-            <h2>{country.population}</h2>
-            <h2>{country.activities}</h2>
+        <div className={style.DivDetail}>
+            <div className={style.card}>
+                <img className={style.flagDetail} src={country.flags} alt={country.name} />
+                <div className={style.detail}>
+                    <span> <strong>{country.name} ({country.id})</strong> is a country located in <strong>{country.subregion}</strong>, part of the larger <strong>{country.continents}</strong> region. Its capital, <strong>{country.capital}</strong> , is the largest city in the country. With an area of <strong>{country.area} km²</strong>, it is {country.area > 5000000 ? 'one of the largest' : country.area > 1000000 ? 'a large' : country.area > 500000 ? 'a medium-sized' : country.area > 100000 ? 'a small' : 'one of the smallest'} countries in {country.continents}. The country has a population of <strong>{country.population}</strong>, with a diverse population that includes people from different ethnicities and cultures.
+                    {country.population > 1000000000 ? " It is one of the most populous countries in the world." :
+                    country.population > 500000000 ? " It is a heavily populated country." :
+                    country.population > 100000000 ? " It is a densely populated country." :
+                    country.population > 50000000 ? " It is a moderately populated country." :
+                    " It is one of the less populated countries in the world."}{renderActivities(country.activities)}</span>
+                </div>
+            </div>
         </div>
     )
 }
