@@ -1,6 +1,7 @@
 import { SEARCH_COUNTRY_ERROR, SEARCH_COUNTRY_REQUEST, SEARCH_COUNTRY_SUCCESS,
         COUNTRY_REQUEST, COUNTRY_SUCCESS, COUNTRY_ERROR, 
-        ORDER_BY_LETTER, ORDER_BY_POPULATION} from "../Action-Types/action-types";
+        ORDER_BY_LETTER, ORDER_BY_POPULATION,
+        POST_ACTIVITY_ERROR, POST_ACTIVITY_REQUEST, POST_ACTIVITY_SUCCESS} from "../Action-Types/action-types";
 
 const initialState = {
     error: null,
@@ -76,6 +77,27 @@ const rootReducer = (state = initialState, action) => {
                         : copyAllCountriesPopulation.sort((a,b) => b.population - a.population)
                 };
             
+            case POST_ACTIVITY_REQUEST:
+                return {
+                    ...state,
+                    loading: true,
+                    error: false,
+                    success: false,
+                };
+            case POST_ACTIVITY_SUCCESS:
+                return {
+                    ...state,
+                    success: true,
+                    loading: false,
+                    error: false,
+                };
+            case POST_ACTIVITY_ERROR:
+                return {
+                    ...state,
+                    error: action.payload,
+                    loading: false,
+                    success: false,
+                };
 
         default: 
         return{...state};

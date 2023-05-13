@@ -4,6 +4,8 @@ import style from './Country.module.css';
 import Modal from '../Modal/Modal';
 import DetailCountry from '../DetailCountry/DetailCountry'
 
+//ARREGLAR EL ANCHO DEL HOVER, AGGARRRA MAS DE LO NECESARIO
+
 const Country = ({ id, name, flags, continents, capital, subregion, area, population }) => {
     const [isOpen, setIsOpen] = useState(false);
     

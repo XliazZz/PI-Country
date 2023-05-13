@@ -1,0 +1,11 @@
+.contenedorCountries {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: repeat(2, minmax(0, 1fr)) 1fr; /* Agregamos una fila adicional */
+    column-gap: 50px;
+    row-gap: 30px;
+    padding: 50px;
+    min-width: 0;
+    overflow: auto;
+    background-color: #e2e2ee;
+}

@@ -5,10 +5,12 @@ import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from "react-redux";
 import { getAllCountries, orderByLetter, orderByPopulation } from '../../Redux/Actions/actions';
 import style from './Home.module.css';
+import CountryLoading from '../CountryLoading/CountryLoading';
 
 const Home = () => {
     const dispatch = useDispatch();
     const allCountries = useSelector(state => state.allCountries);
+    const loading = useSelector(state => state.loading);
     const { pageNumber } = useParams(); // obtiene el número de página actual de la ruta
     const [ currentPage, setCurrentPage ] = useState(pageNumber ? pageNumber - 1 : 0);
     
@@ -51,7 +53,7 @@ const Home = () => {
                 const data = await response.json();
                 setContinents(data);
             } catch (error) {
-                console.error(error);
+                throw new Error(`${error.message}`);
             }
         };
 
@@ -151,21 +153,26 @@ const Home = () => {
             <div className={style.contenedorCountries}>
             {
                 currentItems?.map(country => {
-                    return (
-                        <Country
-                            key={country.id}
-                            id={country.id}
-                            name={country.name}
-                            flags={country.flags}
-                            continents={country.continents}
-                            capital={country.capital}
-                            population={country.population}
-                        />
-                    )
+                    if (loading) {
+                        return <CountryLoading key={country.id} />
+                    } else{
+                        return (
+                            <Country
+                                key={country.id}
+                                id={country.id}
+                                name={country.name}
+                                flags={country.flags}
+                                continents={country.continents}
+                                capital={country.capital}
+                                population={country.population}
+                            />
+                        )
+                    }
                 })
             }
             
             </div>
+
             
             <ReactPaginate
                 pageCount={pageCount}

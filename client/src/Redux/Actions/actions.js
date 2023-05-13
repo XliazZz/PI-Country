@@ -1,7 +1,10 @@
 import axios from 'axios';
 import { SEARCH_COUNTRY_REQUEST, SEARCH_COUNTRY_SUCCESS, SEARCH_COUNTRY_ERROR,
     COUNTRY_REQUEST, COUNTRY_SUCCESS, COUNTRY_ERROR, 
-    ORDER_BY_LETTER, ORDER_BY_POPULATION} from "../Action-Types/action-types";
+    ORDER_BY_LETTER, ORDER_BY_POPULATION,
+    POST_ACTIVITY_REQUEST,
+    POST_ACTIVITY_SUCCESS,
+    POST_ACTIVITY_ERROR} from "../Action-Types/action-types";
 
 // SearchBar
 export const searchRequest = () => {
@@ -58,7 +61,6 @@ export const countryError = ( error ) => ({
 export const getAllCountries = () => {
     return async (dispatch) => {
         dispatch(countryRequest());
-
         try {
             const respose = await axios.get(`http://localhost:3001/countries`);
             const countries = respose.data;
@@ -83,3 +85,32 @@ export const orderByPopulation = (order) => {
         payload: order,
     };
 };
+
+//Post Activity
+export const postActivityRequest = () => ({
+    type: POST_ACTIVITY_REQUEST,
+});
+
+export const postActivitySuccess = ( activity ) => ({
+    type: POST_ACTIVITY_SUCCESS,
+    payload: activity,
+});
+
+export const postActivityError = ( error ) => ({
+    type: POST_ACTIVITY_ERROR,
+    payload: error,
+});
+
+export const postActivity = (activity) => {
+    return async (dispatch) => {
+        dispatch(postActivityRequest());
+        const endpoint = 'http://localhost:3001/activity';
+        try {
+            const { data } = await axios.post(endpoint, activity);
+            dispatch(postActivitySuccess(data));
+        } catch (error) {
+            dispatch(postActivityError(error.message))
+        };
+    };
+};
+

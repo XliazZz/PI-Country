@@ -1,7 +1,6 @@
 const { Country } = require('../../db');
 const { conn } = require('../../db');
 
-
 const listContinents = async () => {
     try {
         const continents = await Country.findAll({

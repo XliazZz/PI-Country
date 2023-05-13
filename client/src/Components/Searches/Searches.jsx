@@ -2,6 +2,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { searchCountries } from "../../Redux/Actions/actions";
 import { useEffect } from "react";
 import Country from "../Country/Country";
+import CountryLoading from "../CountryLoading/CountryLoading";
+import style from './Searches.module.css'
 
 const Searches = ({ match }) => {
     const dispatch = useDispatch(); 
@@ -18,23 +20,24 @@ const Searches = ({ match }) => {
     console.log(searchResults)
 
     return (
-        <div>
-            {loading ? <p>Loading...</p> : null}
-            {success ? <p>success...</p> : null}
-            {error ? <p>error...</p> : null}
+        <div className={style.contenedorCountries}>
             {
                 searchResults[searchResults.length - 1]?.map((country, index) => {
-                    return (
-                        <Country 
-                        key={index}
-                        id={country.id}
-                        name={country.name}
-                        flags={country.flags}
-                        continents={country.continents}
-                        capital={country.capital}
-                        population={country.population}
-                        />
-                    )
+                    if(loading) {
+                        return <CountryLoading key={index}/>
+                    } else {
+                        return (
+                            <Country 
+                            key={index}
+                            id={country.id}
+                            name={country.name}
+                            flags={country.flags}
+                            continents={country.continents}
+                            capital={country.capital}
+                            population={country.population}
+                            />
+                        )
+                    }
                 })
             }
         </div>

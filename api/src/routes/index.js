@@ -8,6 +8,7 @@ const postActivity = require('../controllers/Activity/postActivity');
 const getAllActivities = require('../controllers/Activity/getAllActivities');
 const listContinents  = require('../controllers/Countries/listContinents');
 const filterActivityByName = require('../controllers/Activity/filterActivityByName');
+const listName = require('../controllers/Countries/listName');
 
 const router = Router();
 
@@ -72,8 +73,17 @@ router.get('/activities', async (req, res) => {
     }
 })
 
+router.get('/activities', async (req, res) => {
+    try {
+        const name = req.query.name;
+        const activities = await filterActivityByName(name)
+        res.status(200).json(activities);    
+    } catch (error) {
+        res.status(404).send(error.message)
+    }
 
-//La primera ruta /continents es para obtener la lista de continentes disponibles en la base de datos y devolverla al cliente como opciones para filtrar.
+})
+
 router.get('/continents', async (req, res) => {
     try {
         const continents = await listContinents();
@@ -84,15 +94,14 @@ router.get('/continents', async (req, res) => {
     }
 })
 
-router.get('/activities', async (req, res) => {
+router.get('/countries/name', async (req, res) => {
     try {
-        const name = req.query.name;
-        const activities = await filterActivityByName(name)
-        res.status(200).json(activities);    
+        const names = await listName();
+        console.log(names)
+        res.status(200).json(names)
     } catch (error) {
         res.status(404).send(error.message)
     }
-
 })
 
 module.exports = router;
