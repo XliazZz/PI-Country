@@ -33,6 +33,8 @@ const DetailCountry = ({id}) => {
         : ''; 
     }
 
+    console.log(country.activities);
+
     return(
         <div className={style.DivDetail}>
             <div className={style.card}>

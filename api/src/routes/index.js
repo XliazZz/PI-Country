@@ -8,7 +8,6 @@ const postActivity = require('../controllers/Activity/postActivity');
 const getAllActivities = require('../controllers/Activity/getAllActivities');
 const listContinents  = require('../controllers/Countries/listContinents');
 const filterActivityByName = require('../controllers/Activity/filterActivityByName');
-const listName = require('../controllers/Countries/listName');
 
 const router = Router();
 
@@ -55,7 +54,7 @@ router.get('/countries/byName', async (req, res) => {
 router.post('/activity', async (req, res) => {
     try {
         const activity = await postActivity(req.body);
-
+        // console.log(activity)
         if(activity.error) throw new Error(activity.error);
 
         res.status(200).json(activity);
@@ -94,14 +93,5 @@ router.get('/continents', async (req, res) => {
     }
 })
 
-router.get('/countries/name', async (req, res) => {
-    try {
-        const names = await listName();
-        console.log(names)
-        res.status(200).json(names)
-    } catch (error) {
-        res.status(404).send(error.message)
-    }
-})
 
 module.exports = router;

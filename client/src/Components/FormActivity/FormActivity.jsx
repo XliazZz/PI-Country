@@ -1,41 +1,56 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect } from 'react';
+import { AiOutlineStar, AiFillStar } from 'react-icons/ai'
+import { postActivity, getAllCountries } from '../../Redux/Actions/actions';
 import { useDispatch, useSelector } from 'react-redux';
-import { postActivity } from '../../Redux/Actions/actions';
-import validationActivity from "../validation/validateActivityData";
+import { formActivity } from '../../utils/validation/formActivity'
 import style from './FormActivity.module.css'
-import summer from '../../assert/Season/summer.jpg'
-import spring from '../../assert/Season/spring.jpg'
-import autumn from '../../assert/Season/autumn.jpg'
-import winter from '../../assert/Season/winter.jpg'
-import countries from '../../assert/Season/countries.jpg'
+import summer from '../../assert/Season/summer.jpg';
+import spring from '../../assert/Season/spring.jpg';
+import autumn from '../../assert/Season/autumn.jpg';
+import winter from '../../assert/Season/winter.jpg';
+import countries from '../../assert/Season/countries.jpg';
 
 const FormActivity = () => {
+
     const dispatch = useDispatch();
     const allCountries = useSelector(state => state.allCountries);
-    const success = useSelector(state => state.success);
-    const [formSubmitted, setFormSubmitted] = useState(false); // nueva variable de estado
+
+    //Errors
+    const [errors, setErrors] = useState({});
+
+    //ActivityData
+    useEffect(() => {
+        dispatch(getAllCountries());
+    }, [dispatch])
 
     const [selectedCountries, setSelectedCountries] = useState([]);
-    const [errors, setErrors] = useState({});
+
     const [activityData, setActivityData] = useState({
         name: '',
-        difficulty: '',
-        duration: '',
+        difficulty: 0,
+        duration: 0,
         season: '',
-        selectedCountries: [],
-    })
+        selectedCountries,
+    });
     
-
     const handleChange = (event) => {
         setActivityData({
             ...activityData,
             [event.target.name]: event.target.value
-        })
-        setErrors(validationActivity({
+        });
+        setErrors(formActivity({
             ...activityData,
             [event.target.name]: event.target.value
-        }))
-    }
+        }));
+    };
+    
+    //Funcion para elegir y setear la dificultad por medio de los botones.
+    const handleDifficulty = (difficulty) => {
+        setActivityData({
+            ...activityData,
+            difficulty: difficulty,
+        });
+    };
 
     const handleCountrySelect = (event) => {
         const selectedOptions = Array.from(event.target.selectedOptions).map(option => {
@@ -43,182 +58,139 @@ const FormActivity = () => {
                 id: option.value,
                 name: option.text
             }
-        });
+            });
         
-        const newSelectedCountries = selectedOptions.filter(option => {
+            const newSelectedCountries = selectedOptions.filter(option => {
             return !selectedCountries.some(country => country.id === option.id)
-        })
+            })
         
-        setSelectedCountries([...selectedCountries, ...newSelectedCountries]);
+            setSelectedCountries([...selectedCountries, ...newSelectedCountries]);
         
-        setActivityData({
+            setActivityData({
             ...activityData,
             selectedCountries: [...selectedCountries, ...newSelectedCountries],
-        })
+            })
+        };
+    
+    const handleCountryDelete = (countryId) => {
+        const updatedSelectedCountries = selectedCountries.filter(
+                (country) => country.id !== countryId
+            );
+            setSelectedCountries(updatedSelectedCountries);
+            setActivityData({
+                ...activityData,
+                selectedCountries: updatedSelectedCountries,
+            });
     };
-
-    const handleCountryRemove = (countryId) => {
-        const newSelectedCountries = selectedCountries.filter(
-            (country) => country.id !== countryId
-        );
-        setSelectedCountries(newSelectedCountries);
-        setActivityData({
-            ...activityData,
-            selectedCountries: newSelectedCountries
-        });
-    };
-
+    
     const handleSubmit = (event) => {
         event.preventDefault();
         dispatch(postActivity(activityData));
-        setFormSubmitted(true);
-    } 
-
-    const isFormValid =
-    !activityData.name ||
-    !activityData.difficulty ||
-    !activityData.duration ||
-    !activityData.season ||
-    Object.values(errors).some((error) => error.length > 0);
-
-    const [names, setNames] = useState([]);
-
-    useEffect(() => {
-        const fetchNames = async () => {
-            try {
-                const respose = await fetch('http://localhost:3001/countries/name');
-                const data = await respose.json();
-                setNames(data);
-            } catch (error) {
-                throw new Error(`${error.message}`);
-            }
-        };
-
-        fetchNames();
-    }, [])
-
-
+    };
     
     return(
-        <div className={style.divPadre}>
-            <form className={style.contenedorFormActivity}>
+        <div>
+            <img src={activityData.season === 'Summer' ? summer : activityData.season === 'Autumn' ? autumn : activityData.season === 'Winter' ? winter : activityData.season === 'Spring' ? spring : countries} alt="" />
 
-                <div className={style.contenedorImg}>
-                    <img className={style.imageSeason} src={activityData.season === 'Summer' ? summer : activityData.season === 'Autumn' ? autumn : activityData.season === 'Winter' ? winter : activityData.season === 'Spring' ? spring : countries} alt="season" />
+            <form action="">
+
+                <div>
+                    <label htmlFor="name">Name</label>
+                    <input 
+                    type="text"
+                    name='name'
+                    placeholder='Enter name activity'
+                    value={activityData.name} 
+                    onChange={handleChange}
+                    />
                 </div>
+                {errors.name && <div className={style.error}>{errors.name}</div>}
 
-                <div className={style.contenedorGral}>
-                    <label className={style.labelActivity} htmlFor="name">Name:</label>
-                    <div className={style.inputContainer}>
-                        <input    
-                            className={style.inputActivity}
-                            type="text" 
-                            name="name" 
-                            placeholder="Name your activity"
-                            value={activityData.name}
-                            onChange={handleChange}
-                            disabled={formSubmitted} // agregar el atributo disabled aquí
 
-                        />
-                    {errors.name && <span className={style.errorActivity}>{errors.name}</span> } 
-                </div>
-                </div>
-
-                <div className={style.contenedorGral}>
-                    <label className={style.labelActivity} htmlFor="difficulty">Difficulty:</label>
-                    <div className={style.inputContainer}>
-                        <input 
-                            className={style.inputActivity}
-                            type="number" 
-                            name="difficulty"
-                            placeholder="Put the difficulty level"
-                            value={activityData.difficulty}
-                            onChange={handleChange}
-                            disabled={formSubmitted} // agregar el atributo disabled aquí
-
-                        />
-                    {errors.difficulty && <span className={style.errorActivity}>{errors.difficulty}</span> } 
-                    </div>
-                </div>
-
-                <div className={style.contenedorGral}>
-                    <label className={style.labelActivity} htmlFor="duration">Duration/min:</label>
-                    <div className={style.inputContainer}>
-                        <input 
-                            className={style.inputActivity}
-                            type="number" 
-                            name="duration"
-                            placeholder="Put the duration(Min)"
-                            value={activityData.duration}
-                            onChange={handleChange}
-                            disabled={formSubmitted} // agregar el atributo disabled aquí
-
-                        />
-                    {errors.duration && <span className={style.errorActivity}>{errors.duration}</span> }             
-                    </div>
-                </div>
-
-                <div className={style.contenedorGral}>
-                    <label className={style.labelActivity} htmlFor="season">Season:</label>
+                <div>
+                    <label htmlFor="difficulty">Difficulty</label>
                     <div>
-                        <select 
-                        name="season" 
-                        value={activityData.season} 
+                        {[1, 2, 3, 4, 5].map((difficulty) => (
+                        <button
+                            key={difficulty}
+                            type='button'
+                            onClick={() => handleDifficulty(difficulty)}
+                        >
+                            {difficulty <= activityData.difficulty ? <AiFillStar /> : <AiOutlineStar />}
+                        </button>
+                        ))}
+                    </div>
+                </div>
+                {errors.difficulty && <div className={style.error}>{errors.difficulty}</div>}
+
+
+                <div>
+                    <label htmlFor="duration">Duration</label>
+                    <input 
+                        type="number"
+                        name="duration"
+                        min="0"
+                        step="15"
+                        placeholder="Enter duration in minutes"
+                        value={activityData.duration}
                         onChange={handleChange}
-                        className={style.selectActivity}
-                        disabled={formSubmitted} // agregar el atributo disabled aquí
-
-                        >
-                            <option value="">Select a season</option>
-                            <option value="Summer">Summer</option>
-                            <option value="Autumn">Autumn</option>
-                            <option value="Winter">Winter</option>
-                            <option value="Spring">Spring</option>
-                        </select>
-                        {errors.season && <span className={style.errorActivity}>{errors.season}</span> }             
-                    </div>
+                    />
                 </div>
+                {errors.duration && <div className={style.error}>{errors.duration}</div>}
 
-                <div className={style.contenedorGral}>
-                    <label className={style.labelActivity} htmlFor="selectedCountries">Choose country/countries:</label>
-                    <div className={style.contenedorCountries}>
-                        <select
-                            className={style.selectCountries}
-                            name="selectedCountries"
-                            multiple
-                            value={selectedCountries.map((country) => country.id)}
-                            onChange={handleCountrySelect}
-                            disabled={formSubmitted} // agregar el atributo disabled aquí
-                        >
-                            {names.map(name => (
-                                <option key={name} value={name}>{name}</option>
-                            ))}
-                        </select>
-                        {selectedCountries.map((country) => (
-                            <div className={style.divButtonCountries} key={country.id}>
-
-                                <button
-                                disabled={formSubmitted}
-                                type="button"
-                                onClick={() => handleCountryRemove(country.id)}
-                                >
-                                {country.name}
-                                </button>
-                            </div>
-                            ))}
-                    </div>
-                </div>
                 
-                { !formSubmitted && <button 
-                disabled={isFormValid}
-                onClick={handleSubmit}>Submit</button>}
+                <div>
+                    <label htmlFor="season">Season</label>
+                    <select 
+                    name="season" 
+                    id="season"
+                    value={activityData.season}
+                    onChange={handleChange}
+                    >
+                        <option value="">Select Season</option>
+                        <option value="Summer">Summer</option>
+                        <option value="Autumn">Autumn</option>
+                        <option value="Winter">Winter</option>
+                        <option value="Spring">Spring</option>
+                    </select>
+                </div>
+                {errors.season && <div className={style.error}>{errors.season}</div>}
 
-                {success && formSubmitted && <h2>Activity added successfully!</h2>}
+
+                <label htmlFor="selectedCountries">Choose country/countries:</label>
+            <select
+                className={style.selectCountries}
+                name="selectedCountries"
+                multiple
+                value={selectedCountries.map(country => country.id)}
+                onChange={handleCountrySelect}
+            >
+                {allCountries.map((country) => (
+                    <option key={country.id} value={country.id}>
+                        {country.name}
+                    </option>
+                ))}
+            </select>
+            {errors.selectedCountries && <div className={style.error}>{errors.selectedCountries}</div>}
+            <h4>
+                You selected:{' '}
+                {selectedCountries.map((country) => (
+                    <span key={country.id}>
+                    
+                    <button
+                        type="button"
+                        onClick={() => handleCountryDelete(country.id)}
+                    >
+                        {country.name}
+                    </button>
+                    </span>
+                ))}
+            </h4>
+            <button onClick={handleSubmit}>Submit</button>
 
             </form>
-        
         </div>
     )
-};
+}
 
 export default FormActivity;
