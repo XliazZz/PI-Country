@@ -9,12 +9,20 @@ export const formActivity = (activityData) => {
         errors.name = 'Name must be at least 3 characters long';
     }
 
+    if (activityData.difficulty === 0){
+        errors.difficulty = 'Difficulty is required'
+    }
+
     if (activityData.difficulty && (activityData.difficulty < 1 || activityData.difficulty > 5)) {
         errors.difficulty = 'Difficulty must be between 1 and 5';
     }
 
     if (!activityData.duration) {
     errors.duration = 'Duration is required';
+    }
+
+    if (activityData.duration < 5) {
+    errors.duration = 'Duration must be more than 5 minutes';
     }
 
     if (activityData.duration && activityData.duration <= 0) {

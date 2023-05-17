@@ -5,6 +5,8 @@ import Searches from './Components/Searches/Searches';
 import Home from './Components/Home/Home';
 import DetailCountry from './Components/DetailCountry/DetailCountry';
 import FormActivity from './Components/FormActivity/FormActivity';
+import FavoriteCountry from './Components/FavoriteCountry/FavoriteCountry';
+import Register from './Components/Register/Register';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 
 function App() {
@@ -21,6 +23,8 @@ function App() {
         <Route path='/searches' element={<Searches/>}/>
         <Route path='/detail/:id' element={<DetailCountry />}/>
         <Route path='/activity' element={<FormActivity />}/>
+        <Route path='/favorites/country' element={<FavoriteCountry />}/>
+        <Route path='/register' element={<Register />}/>
       </Routes>
     </div>
   );

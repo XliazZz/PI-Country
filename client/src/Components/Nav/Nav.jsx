@@ -5,7 +5,6 @@ import style from './Nav.module.css';
 import logo from '../../assert/logo.png'
 import { NavLink } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
-import FormActivity from '../FormActivity/FormActivity';
 
 //HACER QUE NO SE PUEDA SELECCIONAR LA IMAGEN DEL LOGO, OSEA QUE NO SE PUEDA COPIAR APRENTADO CLICK
 const Nav = () => {
@@ -23,8 +22,18 @@ const Nav = () => {
             <NavLink to='/activity'>
                 <button>Create your activity</button>
             </NavLink>
+
+            <NavLink to='/favorites/country'>
+                <button>My favorites</button>
+            </NavLink>
+            
             { pathname === '/' && <Button text='LOG IN'></Button>}
-            { pathname === '/' && <Button2 text='CREATE YOUR ACTIVITY'></Button2>}
+
+            <NavLink to={'/register'}>
+                { pathname === '/' && <Button2 text='CREATE YOUR ACTIVITY'></Button2>}
+            </NavLink>
+
+
             { pathname !== '/' && <SearchBar />}
         </nav>
     )

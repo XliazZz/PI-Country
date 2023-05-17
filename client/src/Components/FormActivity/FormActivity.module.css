@@ -1,3 +1,119 @@
 .error {
     color: red;
+    margin-left: 10px;
+    font-weight: 900;
+}
+
+.padre{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: #F5F5DC;
+}
+
+.seasons{
+    width: 100%;
+    border-radius: 10px;
+}
+
+.form{
+    border: 1px solid gray;
+    display: flex;
+    flex-direction: column;
+    width: 600px;
+    border-radius: 10px;
+    background-color: #F5F5F5;
+    margin: 2%;
+}
+
+.divLabelInput {
+    display: flex;
+    flex-direction: column;
+    margin: 15px;
+}
+
+.labelActivity{
+    font-weight: 900;
+    font-size: 120%;
+    margin-bottom: 10px;
+}
+
+.inputActivity{
+    border: none;
+    border-bottom:1px solid black ;
+    height: 27px;
+    background-color: #F5F5F5;
+}
+
+.difficultyButton{
+    font-size: 163%;
+    background-color: #F5F5F5;
+    border: none;
+    margin-top: 10px;
+}
+.starWhite{
+    color: gray;
+    padding-top: 5px;
+}
+.starGold{
+    color: gold;
+    padding-top: 5px;
+
+}
+
+.selectActivity{
+    width: 38%;
+    border-radius: 6px;
+    border: 1px solid black;
+
+}
+
+.selectCountries{
+    height: 90%;
+    width: 100%;
+    border: 1px solid black;
+    border-radius: 6px;
+}
+
+.inputErrorContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.selected{
+    margin-left: 2%;
+}
+
+.buttonCountry{
+    margin-left: 2%;
+    border-radius: 5px;
+    border: 1px solid black;
+}
+
+.divSubmit{
+    margin-bottom: 30px;
+}
+
+.buttonCreate{
+    width: 40%;
+    margin-left: 30%;
+    font-size: 25px;
+    border-radius: 5px;
+    border: 1px solid black;
+}
+
+.buttonCreate:disabled{
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.success{
+    align-items: center;
+    color: green;
+    font-size: 30px;
+    text-align: center;
+    margin-bottom: 25px;
 }

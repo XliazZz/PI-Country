@@ -8,6 +8,11 @@ const postActivity = require('../controllers/Activity/postActivity');
 const getAllActivities = require('../controllers/Activity/getAllActivities');
 const listContinents  = require('../controllers/Countries/listContinents');
 const filterActivityByName = require('../controllers/Activity/filterActivityByName');
+const postFavoriteCountry = require('../controllers/Favorite/postFavoriteCountry');
+const postFavoriteActivity = require('../controllers/Favorite/postFavoriteActivity');
+const deleteFavoriteActivity = require('../controllers/Favorite/deleteFavoriteActivity');
+const createUser = require('../controllers/User/createUser');
+const login = require('../controllers/User/login');
 
 const router = Router();
 
@@ -89,9 +94,94 @@ router.get('/continents', async (req, res) => {
         console.log(continents)
         res.status(200).json(continents);
     } catch (error) {
-        res.status(404).send(error.message)
+        res.status(404).send(error.message);
+    };
+});
+
+router.post('/fav', async (req, res) => {
+    try {
+        const countryFav = await postFavoriteCountry(req.body);
+
+        if(countryFav.error) throw new Error(countryFav.error)
+        
+        res.status(200).json(countryFav);
+
+    } catch (error) {
+        return res.status(404).send(error.message);
+    };
+});
+
+router.delete('/fav/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        const deleteFavoriteCountry = await deleteFavoriteCountry(id);
+
+        if(deleteFavoriteCountry.error) throw new Error(deleteFavoriteCountry.error);
+
+        return res.status(200).json(deleteFavoriteCountry);
+
+    } catch (error) {
+        return res.status(404).send(error.message);
+    }
+});
+
+router.post('/favActivity', async (req, res) => {
+    try {
+        const activityFav = await postFavoriteActivity(req.body);
+
+        if(activityFav.error) throw new Error(activityFav.error);
+
+        res.status(200).json(activityFav);
+
+    } catch (error) {
+        return res.status(404).send(error.message);
     }
 })
 
+router.delete('/favActivity/:id', async (req, res) => {
+    try {
+        const { id } = req.params; 
+
+        const deleteFavoriteActivities = await deleteFavoriteActivity(id);
+
+        if(deleteFavoriteActivities.error) throw new Error(deleteFavoriteActivities.error);
+
+        return res.status(200).json(deleteFavoriteActivities);
+
+    } catch (error) {
+        return res.status(404).send(error.message);
+    }
+})
+
+router.post('/user', async (req, res) => {
+    try {
+        const { email, password, firstName, lastName } = req.body;
+
+        if(!email || !password || !firstName || !lastName){
+            return res.status(400).json({ message: 'Missing data' })
+        }
+
+        const newUser = await createUser(req.body);
+        
+        return res.status(200).json(newUser);
+        
+    } catch (error) {
+        return res.status(404).send(error.message)
+    }
+})
+
+router.get('/login', async (req, res) => {
+    try {
+        const { email, password } = req.query;
+        
+        const user = await login(email, password);
+
+        return res.status(200).json({ access: true });
+
+    } catch (error) {
+        return res.status(404).send(error.message)
+    }
+});
 
 module.exports = router;

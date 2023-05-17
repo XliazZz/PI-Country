@@ -1,5 +1,4 @@
 import Country from '../Country/Country';
-import ReactPaginate from 'react-paginate';
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from "react-redux";
@@ -173,28 +172,7 @@ const Home = () => {
             
             </div>
 
-            
-            <ReactPaginate
-                pageCount={pageCount}
-                onPageChange={handlePageChange}
-                containerClassName={style['pagination']}
-                pageClassName={style['page-item']}
-                pageLinkClassName={style['page-link']}
-                previousClassName={currentPage === 0 ? style['page-item disabled'] : style['page-item']}
-                previousLinkClassName={style['page-link']}
-                nextClassName={currentPage === pageCount - 1 ? style['page-item disabled'] : style['page-item']}
-                nextLinkClassName={style['page-link']}
-                breakClassName={style['page-item']}
-                breakLinkClassName={style['page-link']}
-                activeClassName={style['active']}
-                disabledClassName={style['disabled']}
-                forcePage={currentPage}
-                marginPagesDisplayed={2}
-                pageRangeDisplayed={2}
-                previousLabel={currentPage === 0 ? "" : "Back"}
-                nextLabel={currentPage === pageCount - 1 ? "" : "Next"} // Agregar condición para mostrar el botón solo cuando no estás en la última página
-
-            />
+        
 
         </div>
     )
