@@ -52,9 +52,7 @@ export const formRegister = (userData) => {
     if(/\s/.test(userData.password)){
         errors.password = 'It cannot contain blank spaces.';
     }
-    if(userData.password === userData.firstName){
-        errors.password = 'The password cannot be the same as the username.';
-    }        
+        
 
     return errors;
 };

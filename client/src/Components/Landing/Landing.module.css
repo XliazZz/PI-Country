@@ -66,6 +66,7 @@
     border: 0px;
     color: white;
     width: 15%;
+    cursor: pointer;
 }
 
 .signLanding{
@@ -77,6 +78,7 @@
     border: 0px;
     color: white;
     width: 15%;
+    cursor: pointer;
 }
 
 /* LISTA */

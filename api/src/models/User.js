@@ -24,9 +24,8 @@ module.exports = (sequelize) => {
             type: DataTypes.STRING(64),
             allowNull: false,
         },
-        profileImage: {
-            type: DataTypes.TEXT,
-            allowNull: true,
+        image: {
+            type: DataTypes.STRING,
         }
     }, { timestamps: false })
     

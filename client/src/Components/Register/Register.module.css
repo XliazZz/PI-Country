@@ -5,7 +5,7 @@
     position: relative;
     overflow: hidden;
     border: 3px solid black;  
-    margin-bottom: 50px; 
+    margin-bottom: 25px; 
 }
 
 .imagePlaceholder:hover{
@@ -64,14 +64,15 @@
     justify-content: center;
     align-items: center;
     width: 100%;
+    background: linear-gradient(to top, #1e3c72 0%, #1e3c72 1%, #2a5298 100%);
 }
 
 .inputsLabel {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(2, 1fr);
-    grid-column-gap: 20px;
-    grid-row-gap: 5%;
+    grid-column-gap: 140px;
+    grid-row-gap: 20px;
     text-align: center;
 }
 
@@ -82,29 +83,135 @@
     justify-content: center;
     width: 90%;
     max-width: 700px; 
-    height: 70vh;
+    height: 80vh;
     border-radius: 15px;
     border: 1px solid black;
-    margin-top: 6%;
+    margin-top: 3%;
+    margin-bottom: 3%;
     margin-left: auto;
     margin-right: auto;
+    box-shadow: 0px 0px 31px 2px rgba(0,0,0,0.76);
+    -webkit-box-shadow: 0px 0px 31px 2px rgba(0,0,0,0.76);
+    -moz-box-shadow: 0px 0px 31px 2px rgba(0,0,0,0.76);
+    background: linear-gradient(to top, #a3bded 0%, #6991c7 100%);
 }
 
-@media (max-width: 768px) {
-    .inputsLabel {
-        grid-template-columns: 1fr;
-        grid-template-rows: repeat(4, 1fr);
-        grid-column-gap: 0;
-        grid-row-gap: 5%;
-        padding-top: 2%;
-    }
-
-    .contenedorForm {
-        width: 90%;
-        margin-top: 4%;
-    }
+.errorContainer{
+    position: absolute;
 }
 
-.inputWrapper{
-    position: initial;
+.errorMessage{
+    position: absolute;
+    width: 30vh;
+    color: #FF0000;
+    font-weight: 900;
+    padding-top: 10px;
+    font-size: 22px;
+    margin-left: 6px;
+    
+}
+
+.termSubmit{
+    margin-top: 35px;
+    text-align: center;
+    font-size: 25px;
+    font-weight: 500;
+}
+
+.labelRegister{
+    font-size:1.5rem;
+    font-weight: 600;
+}
+
+.inputRegister{
+    width: 90%;
+    margin-top: 10px;
+    border: none;
+    border-bottom:3px solid black ;
+    color: #fff;
+    height: 27px;
+    background-color: #2a5298;
+    border-radius: 5px 5px 0px 0px;
+}
+
+.contenedorForm input::placeholder {
+    color: #d6d6d6;
+    padding: 5px;
+}
+
+.submitRegister{
+    cursor: pointer;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    font-size: 30px;
+    border-radius: 5px;
+    background-color: #4F98CA;
+    color: black;
+    padding: 7px;
+    border: 1px solid #2a5298 ;
+}
+
+.submitRegister:hover{
+    background-color: #2a5298;
+    border: 1px solid #4F98CA ;
+    color: white;
+}
+
+.terms{
+    cursor: pointer;
+}
+
+input[type="checkbox"] {
+    /* Ajusta el tamaño del checkbox */
+    transform: scale(1.5);
+}
+
+.submitRegister:disabled{
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.buttonShow{
+    transform: translate(105px, -33px); /* Ajusta los valores según la cantidad de desplazamiento que desees */
+    background: none;
+    border: none;
+    color: white;
+
+}
+
+.showOrNo{
+    font-size: 30px;
+    color: white;
+    background-color: #2a5298;
+}
+
+.backForm{
+    color: white;
+    position: relative;
+    top: 15px;
+    right: 305px;
+    width: 55px;
+    padding-top: 5px;
+    height: 35px;
+    color: black;
+    background: #4F98CA;
+    border-radius: 10px;
+    margin: 0 auto;
+    font-size: 23px;
+    border: 1px solid #2a5298;
+    cursor: pointer;
+
+}
+
+.backForm:hover{
+    background-color: #2a5298;
+    color: white;
+    border: 1px solid #4F98CA;
+}
+
+.navLink {
+    text-decoration: none;
+    border-bottom: none;
+    color: #2a5298;
+    font-weight: 900;
 }

@@ -32,4 +32,7 @@ server.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
   res.status(status).send(message);
 });
 
+//static images folder
+server.use('/controllers/UploadImage/images', express.static('../images'))
+
 module.exports = server;

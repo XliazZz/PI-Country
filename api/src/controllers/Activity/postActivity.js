@@ -20,11 +20,11 @@ const postActivity = async (activity) => {
         await newActivity.setCountries(countries);
     
         return newActivity;
-        } catch (error) {
+    } catch (error) {
         console.error(error);
         return { error: 'Could not create the activity.' };
-        }
-    };
+    }
+};
 
 
 module.exports = postActivity;

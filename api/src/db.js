@@ -37,12 +37,15 @@ Country.belongsToMany(Activity, { through: 'activity_countries' });
 Activity.belongsToMany(Country, { through: 'activity_countries' });
 User.belongsToMany(Activity, { through: 'user_activity' })
 User.belongsToMany(Country, { through: 'user_country' });
+
 User.belongsToMany(FavoriteCountry, { through: 'favorite_countries' });
+FavoriteCountry.belongsToMany(User, { through: 'favorite_countries' });
+
 User.belongsToMany(FavoriteActivity, { through: 'favorite_activities' });
-FavoriteCountry.belongsTo(Country);
-FavoriteActivity.belongsTo(Activity);
-FavoriteCountry.belongsTo(User);
-FavoriteActivity.belongsTo(User);
+
+const user = User.build(); 
+console.log(typeof user.setFavoriteCountries === 'function'); // Debería imprimir true si el método está disponible
+
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');

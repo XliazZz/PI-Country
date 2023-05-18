@@ -5,36 +5,47 @@ import style from './Nav.module.css';
 import logo from '../../assert/logo.png'
 import { NavLink } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
+import { RiLogoutBoxLine } from "react-icons/ri"
 
 //HACER QUE NO SE PUEDA SELECCIONAR LA IMAGEN DEL LOGO, OSEA QUE NO SE PUEDA COPIAR APRENTADO CLICK
-const Nav = () => {
-
-    
+const Nav = ({ logOut }) => {
     const { pathname } = useLocation();
+    const location = useLocation();
 
     return(
         <nav className={style.navBar}>
+
+
             <img src={logo} alt={logo} />
-            <NavLink to='/home'>
-                <button className={style.botonHome}>Home</button>
+            <NavLink to={'/home'}>
+                { pathname !== '/' && location.pathname !== "/login" && location.pathname !== "/register" &&  <button className={style.botonHome}>Home</button>}
             </NavLink>
 
-            <NavLink to='/activity'>
-                <button>Create your activity</button>
+            <NavLink to={'/activity'}>
+                { pathname !== '/' && location.pathname !== "/login" && location.pathname !== "/register" && <button>Create your activity</button>}
             </NavLink>
 
-            <NavLink to='/favorites/country'>
-                <button>My favorites</button>
+            <NavLink to={'/favorites/country'}>
+                { pathname !== '/' && location.pathname !== "/login" && location.pathname !== "/register" && <button>My favorites</button>}
             </NavLink>
             
-            { pathname === '/' && <Button text='LOG IN'></Button>}
-
-            <NavLink to={'/register'}>
-                { pathname === '/' && <Button2 text='CREATE YOUR ACTIVITY'></Button2>}
+            <NavLink to={'/login'}>
+                { pathname === '/' && location.pathname !== "/login"  && <Button text='LOG IN'></Button>}
             </NavLink>
 
+            <NavLink to={'/register'}>
+                { pathname === '/' && location.pathname !== "/login" && location.pathname !== "/register" && <Button2 text='CREATE YOUR ACTIVITY'></Button2>}
+            </NavLink>
 
-            { pathname !== '/' && <SearchBar />}
+            { location.pathname !== "/" && location.pathname !== "/login" && location.pathname !== "/register" && (
+            <NavLink to="/">
+            <button className={style.logOut} onClick={logOut}>
+                <RiLogoutBoxLine />
+            </button>
+            </NavLink>
+            )}
+
+            { pathname !== '/' && pathname !== '/login' && pathname !== '/register' && <SearchBar />}
         </nav>
     )
 };

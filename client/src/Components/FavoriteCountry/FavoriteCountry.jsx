@@ -22,6 +22,8 @@ const FavoriteCountry = () => {
                                 name={country.name}
                                 flags={country.flags}
                                 continents={country.continents}
+                                area={country.area}
+                                subregion={country.sub}
                                 capital={country.capital}
                                 population={country.population}
                             />

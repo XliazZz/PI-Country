@@ -15,6 +15,7 @@ import { MdOutlineFavorite } from "react-icons/md"
 import { FaSearchLocation } from "react-icons/fa"
 import { RiCompassDiscoverFill } from "react-icons/ri"
 import Footer from '../Footer/Footer';
+import { NavLink } from "react-router-dom"
 
 // 
     //  HACER LAS REDIRECCIONES DEL FOOTER 
@@ -111,8 +112,13 @@ const Landing = () => {
                 <span className={style.subtitleLanding}>Welcome to our website, where you can explore all the countries of the world! Sign up or log in to access all the features, like searching for countries and getting their information, creating custom travel itineraries, and adding your favorite countries to your list. Start your journey today and discover everything our website has to offer!</span>
 
                 <div className={style.divButtons}>
-                    <button  className={style.registerLanding}>REGISTER</button>
-                    <button className={style.signLanding}>SIGN IN</button>
+                    <NavLink to={'/register'}>
+                        <button  className={style.registerLanding}>REGISTER</button>
+                    </NavLink>
+
+                    <NavLink to={'/login'}>
+                        <button className={style.signLanding}>SIGN IN</button>
+                    </NavLink>
                 </div>
             </div>
 
