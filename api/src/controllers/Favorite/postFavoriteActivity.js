@@ -1,4 +1,4 @@
-const { FavoriteActivity } = require('../../db');
+const { FavoriteActivity, User } = require('../../db');
 
 const postFavoriteActivity = async (activity) => {
     try {
@@ -9,6 +9,10 @@ const postFavoriteActivity = async (activity) => {
             duration: activity.duration,
             season: activity.season
         });
+
+        // Asociar el FavoriteCountry al User
+        const user = await User.findOne(); // Obtiene un usuario existente (puedes adaptarlo según tus necesidades)
+        await user.addFavoriteActivity(newFavoriteActivity);
 
         return newFavoriteActivity;
 

@@ -1,11 +1,10 @@
 import { useState, useEffect  } from 'react';
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { deleteFavoriteCountry, postFavoriteCountry } from '../../Redux/Actions/actions';
 import Modal from '../Modal/Modal';
 import DetailCountry from '../DetailCountry/DetailCountry'
 import style from './Country.module.css';
-
-//ARREGLAR EL ANCHO DEL HOVER, AGGARRRA MAS DE LO NECESARIO
+import axios from 'axios';
 
 const Country = ({ id, name, flags, continents, capital, subregion, area, population }) => {
     const [isOpen, setIsOpen] = useState(false);
@@ -13,8 +12,6 @@ const Country = ({ id, name, flags, continents, capital, subregion, area, popula
     const toggleModal = () => {
         setIsOpen(!isOpen);
     };
-
-    console.log(isOpen);
 
     const onClose = () => {
         setIsOpen(false);
@@ -30,7 +27,6 @@ const Country = ({ id, name, flags, continents, capital, subregion, area, popula
     }, [isOpen]);
 
     const dispatch = useDispatch();
-    const myFavorites = useSelector(state => state.myFavorites);
     const [isFav, setIsFav] = useState(false);
 
     const handleFavorite = () => {
@@ -43,23 +39,40 @@ const Country = ({ id, name, flags, continents, capital, subregion, area, popula
         };
     };
 
+    const [favs, setFavs] = useState([]);
+
     useEffect(() => {
-        myFavorites?.forEach((fav) => {
+        const allCountriesFav = async () => {
+            try {
+                const respose = await axios.get('http://localhost:3001/fav');
+                const data = respose.data;
+                setFavs(data)
+            } catch (error) {
+                throw new Error(`${error.message}`);
+            }
+        }
+        allCountriesFav();
+    }, [])
+
+
+    useEffect(() => {
+        favs?.forEach((fav) => {
             if (fav && fav.id === id) {
                 setIsFav(true);
             }
             });
-    }, [myFavorites]);
-
-    console.log(myFavorites)
+    }, [favs]);
 
     return(
         <div className={style.container}>
-            <button
-                onClick={handleFavorite}
-            >
-                "🤍"
-            </button>
+            <div className={style.buttonContainer}>
+                <button
+                    className={style.buttonHeart}
+                    onClick={handleFavorite}
+                >
+                    {isFav ? "❤️ " : "🤍"}
+                </button>
+            </div>
             <div className={style.card} onClick={toggleModal}>
                 <img className={style.imagen} src={flags} alt={name} />
                 <div className={style.intro}>
@@ -68,14 +81,15 @@ const Country = ({ id, name, flags, continents, capital, subregion, area, popula
                     <p>{continents}</p>
                 </div>
             </div>
-            {
-            isOpen && <Modal isOpen={isOpen}>
-                <button className={style.closeButton} onClick={onClose}>X</button>
-                <DetailCountry id={id} />
-            </Modal>
-            }
 
+            {isOpen && (
+                <Modal isOpen={isOpen}>
+                    <button className={style.closeButton} onClick={onClose}>X</button>
+                    <DetailCountry id={id} />
+                </Modal>
+            )}
         </div>
+
     )
 };
 

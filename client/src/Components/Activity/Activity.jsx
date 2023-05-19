@@ -1,12 +1,11 @@
 import { useState, useEffect  } from 'react';
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { postFavoriteActivity, deleteFavoriteActivity } from "../../Redux/Actions/actions";
-
+import axios from "axios";
+import style from './Activity.module.css'
 
 const Activity = ({ id, name, difficulty, duration, season }) => {
-
     const dispatch = useDispatch();
-    const myFavoriteActivity = useSelector(state => state-myFavoriteActivity);
     const [isFav, setIsFav] = useState(false);
 
     const handleFavorite = () => {
@@ -19,20 +18,36 @@ const Activity = ({ id, name, difficulty, duration, season }) => {
         };
     };
 
+    const [favs, setFavs] = useState([]);
+
     useEffect(() => {
-        myFavoriteActivity?.forEach((fav) => {
+        const allCountriesFav = async () => {
+            try {
+                const respose = await axios.get('http://localhost:3001/favactivity');
+                const data = respose.data;
+                setFavs(data)
+            } catch (error) {
+                throw new Error(`${error.message}`);
+            }
+        }
+        allCountriesFav();
+    }, [])
+
+    useEffect(() => {
+        favs?.forEach((fav) => {
             if (fav && fav.id === id) {
                 setIsFav(true);
-            };
-        });
-    }, [myFavoriteActivity]);
-
+            }
+            });
+    }, [favs]);
+    
     return(
         <div>
             <button
+                className={style.buttonHeart}
                 onClick={handleFavorite}
             >
-                🤍
+                {isFav ? "❤️ " : "🤍"}
             </button>
             <h3>{name}</h3>
             <h3>{difficulty}</h3>

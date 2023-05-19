@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { getAllCountries, orderByLetter, orderByPopulation } from '../../Redux/Actions/actions';
 import style from './Home.module.css';
 import CountryLoading from '../CountryLoading/CountryLoading';
+import Activity from '../Activity/Activity';
 
 const Home = () => {
     const dispatch = useDispatch();
@@ -79,7 +80,7 @@ const Home = () => {
     useEffect(() => {
         const fetchActivities = async () => {
             try {
-                const response = await fetch(`http://localhost:3001/activities?name=${selectedActivityName}`);
+                const response = await fetch(`http://localhost:3001/activities?season=${season}`);
                 const data = await response.json();
                 setActivities(data);
             } catch (error) {
@@ -149,6 +150,18 @@ const Home = () => {
                 </div>
             </div>
 
+            {selectedActivityName && activities.map(activity => (
+                <Activity 
+                    key={activity.id}
+                    id={activity.id}
+                    name={activity.name}
+                    difficulty={activity.difficulty}
+                    season={activity.season}
+                    duration={activity.duration}
+                />
+            ))}
+
+
             <div className={style.contenedorCountries}>
             {
                 currentItems?.map(country => {
@@ -171,9 +184,6 @@ const Home = () => {
             }
             
             </div>
-
-        
-
         </div>
     )
 }

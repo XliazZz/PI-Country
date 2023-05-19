@@ -1,17 +1,32 @@
-import { useSelector } from "react-redux";
-import Country from "../Country/Country";
 import CountryLoading from "../CountryLoading/CountryLoading";
+import Country from "../Country/Country";
 import style from './FavoriteCountry.module.css';
+import axios from "axios";
+import { useState, useEffect } from 'react';
+import { useSelector } from "react-redux";
 
 const FavoriteCountry = () => {
-    const myFavorites = useSelector(state => state.myFavorites);
-    const loading = useSelector(state => state.loading);
-    console.log(myFavorites)
+    const loading = useSelector(state => state.loading)
+    const [favs, setFavs] = useState([]);
+
+    useEffect(() => {
+        const allCountriesFav = async () => {
+            try {
+                const respose = await axios.get('http://localhost:3001/fav');
+                const data = respose.data;
+                setFavs(data)
+            } catch (error) {
+                throw new Error(`${error.message}`);
+            }
+        }
+        allCountriesFav();
+    }, [favs])
+
     return(
-        <div>
-            <div>
+        <div  className={style.elCapo}>
+            <div className={style.contenedorCountries}>
             {
-                myFavorites?.map(country => {
+                favs?.map(country => {
                     if (loading) {
                         return <CountryLoading key={country.id} />
                     } else{

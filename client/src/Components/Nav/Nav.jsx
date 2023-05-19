@@ -26,7 +26,11 @@ const Nav = ({ logOut }) => {
             </NavLink>
 
             <NavLink to={'/favorites/country'}>
-                { pathname !== '/' && location.pathname !== "/login" && location.pathname !== "/register" && <button>My favorites</button>}
+                { pathname !== '/' && location.pathname !== "/login" && location.pathname !== "/register" && <button>My favorites countries</button>}
+            </NavLink>
+
+            <NavLink to={'/favorites/activity'}>
+                { pathname !== '/' && location.pathname !== "/login" && location.pathname !== "/register" && <button>My favorites activities</button>}
             </NavLink>
             
             <NavLink to={'/login'}>

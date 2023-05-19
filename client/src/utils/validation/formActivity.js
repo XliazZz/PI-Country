@@ -33,7 +33,7 @@ export const formActivity = (activityData) => {
     errors.season = 'Season is required';
     }
 
-    if (activityData.season && !['summer', 'fall', 'winter', 'spring'].includes(activityData.season.toLowerCase())) {
+    if (activityData.season && !['summer', 'autumn', 'winter', 'spring'].includes(activityData.season.toLowerCase())) {
         errors.season = 'Invalid season';
     }
 

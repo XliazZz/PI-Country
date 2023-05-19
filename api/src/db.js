@@ -35,13 +35,16 @@ const { Country, Activity, User, FavoriteCountry, FavoriteActivity } = sequelize
 // Aca vendrian las relaciones
 Country.belongsToMany(Activity, { through: 'activity_countries' });
 Activity.belongsToMany(Country, { through: 'activity_countries' });
+
 User.belongsToMany(Activity, { through: 'user_activity' })
 User.belongsToMany(Country, { through: 'user_country' });
 
 User.belongsToMany(FavoriteCountry, { through: 'favorite_countries' });
 FavoriteCountry.belongsToMany(User, { through: 'favorite_countries' });
 
-User.belongsToMany(FavoriteActivity, { through: 'favorite_activities' });
+User.belongsToMany(FavoriteActivity, { through: 'favorite_activity' });
+FavoriteActivity.belongsToMany(User, { through: 'favorite_activity' });
+
 
 const user = User.build(); 
 console.log(typeof user.setFavoriteCountries === 'function'); // Debería imprimir true si el método está disponible

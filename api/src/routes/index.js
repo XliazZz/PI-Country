@@ -14,7 +14,10 @@ const postFavoriteActivity = require('../controllers/Favorite/postFavoriteActivi
 const deleteFavoriteActivity = require('../controllers/Favorite/deleteFavoriteActivity');
 const createUser = require('../controllers/User/createUser');
 const login = require('../controllers/User/login');
-const { upload } = require('../controllers/UploadImage/uploadImage')
+const { upload } = require('../controllers/UploadImage/uploadImage');
+const getAllFavoritesCountries = require('../controllers/Favorite/getAllFavoritesCountries');
+const deleteFavoriteCountry = require('../controllers/Favorite/deleteFavoriteCountry');
+const getAllFavoritesActivities = require('../controllers/Favorite/getAllFavoriteActivities');
 
 const router = Router();
 
@@ -81,14 +84,14 @@ router.get('/activities', async (req, res) => {
 
 router.get('/activities', async (req, res) => {
     try {
-        const name = req.query.name;
-        const activities = await filterActivityByName(name)
-        res.status(200).json(activities);    
+        const season = req.query.season; // Obtener la temporada desde la consulta
+        const activities = await filterActivityByName(season); // Utilizar la función filterActivityBySeason
+        res.status(200).json(activities);
     } catch (error) {
-        res.status(404).send(error.message)
+        res.status(404).send(error.message);
     }
+});
 
-})
 
 router.get('/continents', async (req, res) => {
     try {
@@ -115,22 +118,42 @@ router.post('/fav', async (req, res) => {
     };
 });
 
+router.get('/fav', async (req, res) => {
+    try {
+        const allCountriesFav = await getAllFavoritesCountries();
+
+        res.status(200).json(allCountriesFav);
+
+    } catch (error) {
+        res.status(404).send("Error when getting the countries favs.")
+    }
+})
+
 router.delete('/fav/:id', async (req, res) => {
     try {
         const { id } = req.params;
 
-        const deleteFavoriteCountry = await deleteFavoriteCountry(id);
+        if (!id) {
+            return res.status(400).send('Invalid request. Please provide a valid country ID.');
+        }
 
-        if(deleteFavoriteCountry.error) throw new Error(deleteFavoriteCountry.error);
+        const deleteFavoriteCountryResult = await deleteFavoriteCountry(id);
 
-        return res.status(200).json(deleteFavoriteCountry);
+        if (deleteFavoriteCountryResult.error) {
+            throw new Error(deleteFavoriteCountryResult.error);
+        }
+
+        return res.status(200).json(deleteFavoriteCountryResult);
 
     } catch (error) {
-        return res.status(404).send(error.message);
+        console.error(error); // Imprimir el error en la consola para su posterior análisis
+
+        return res.status(500).send('An error occurred while deleting the Favorite Country.');
     }
 });
 
-router.post('/favActivity', async (req, res) => {
+
+router.post('/favactivity', async (req, res) => {
     try {
         const activityFav = await postFavoriteActivity(req.body);
 
@@ -143,18 +166,37 @@ router.post('/favActivity', async (req, res) => {
     }
 })
 
-router.delete('/favActivity/:id', async (req, res) => {
+router.delete('/favactivity/:id', async (req, res) => {
     try {
         const { id } = req.params; 
 
+        if (!id) {
+            return res.status(400).send('Invalid request. Please provide a valid activity ID.');
+        }
+
         const deleteFavoriteActivities = await deleteFavoriteActivity(id);
 
-        if(deleteFavoriteActivities.error) throw new Error(deleteFavoriteActivities.error);
+        if (deleteFavoriteActivities.error) {
+            throw new Error(deleteFavoriteActivities.error);
+        }
 
         return res.status(200).json(deleteFavoriteActivities);
 
     } catch (error) {
-        return res.status(404).send(error.message);
+        console.error(error); // Imprimir el error en la consola para su posterior análisis
+
+        return res.status(500).send('An error occurred while deleting the Favorite Activity.');    
+    }
+})
+
+router.get('/favactivity', async (req, res) => {
+    try {
+        const allActivitiesFav = await getAllFavoritesActivities();
+
+        res.status(200).json(allActivitiesFav);
+
+    } catch (error) {
+        res.status(404).send("Error when getting the activities favs.")
     }
 })
 

@@ -12,6 +12,7 @@ import Login from './Components/Login/Login';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import FavoriteActivity from './Components/FavoriteActivity/FavoriteActivity';
 
 function App() {
   const [access, setAccess] = useState(false);
@@ -59,6 +60,7 @@ function App() {
         <Route path='/detail/:id' element={<DetailCountry />}/>
         <Route path='/activity' element={<FormActivity />}/>
         <Route path='/favorites/country' element={<FavoriteCountry />}/>
+        <Route path='/favorites/activity' element={<FavoriteActivity />}/>
         <Route path='/register' element={<Register />}/>
         <Route path='/terms' element={<Terms />}/>
         <Route path='/login' element={<Login login={login} />}/>

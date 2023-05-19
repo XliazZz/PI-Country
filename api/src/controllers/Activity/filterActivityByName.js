@@ -1,12 +1,12 @@
 const { Op } = require('sequelize');
 const { Activity } = require('../../db');
 
-const filterActivityByName = async (name) => {
+const filterActivityByName = async (season) => {
     try {
         const activities = await Activity.findAll({
             where: {
-                name: {
-                [Op.iLike]: `%${name}%`,
+                season: {
+                [Op.eq]: season,
                 },
             },
             include: [
@@ -21,7 +21,7 @@ const filterActivityByName = async (name) => {
             });
             return activities;
         } catch (error) {
-            throw new Error(`Error searching for activities: ${error.message}`);        
+            throw new Error(`Error searching for activities: ${error.message}`);
         }
 };
 

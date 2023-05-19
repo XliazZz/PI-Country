@@ -13,50 +13,6 @@
     overflow: auto;
 }
 
-.pagination {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 23px;
-    font-family: 'Archivo';
-    color: white;
-    
-}
-
-.page-item {
-    margin: 0 5px;
-}
-
-.active {
-    font-weight: bold;
-    color: black;
-}
-
-.pagination .page-item {
-    display: inline-block;
-    margin-right: 10px;
-    height: 40px;
-    width: 65px;
-    padding: 5px;
-    background-color: #4F98CA;
-    border-radius: 15px
-}
-
-.page-link {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    width: 100%;
-    text-align: center;
-    cursor: pointer;
-
-}
-
-.next{
-    background-color: #e2e2ee;
-}
-
 .filterContainer {
     display: flex;
     flex-wrap: wrap;

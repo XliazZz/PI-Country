@@ -188,6 +188,7 @@ export const deleteFavoriteCountry = (id) => {
     };
 };
 
+
 //Post favorite activity
 export const postFavoriteActivityRequest = () => ({
     type: POST_FAVORITE_ACTIVITY_REQUEST,
@@ -203,12 +204,12 @@ export const postFavoriteActivityError = ( error ) => ({
     payload: error,
 });
 
-export const postFavoriteActivity = (country) => {
+export const postFavoriteActivity = (activity) => {
     return async (dispatch) => {
         dispatch(postFavoriteActivityRequest());
-        const endpoint = 'http://localhost:3001/favActivity';
+        const endpoint = 'http://localhost:3001/favactivity';
         try {
-            const { data } = await axios.post(endpoint, country);
+            const { data } = await axios.post(endpoint, activity);
             dispatch(postFavoriteActivitySuccess(data));
         } catch (error) {
             const errorMessage = error.response?.data?.error || error.message;
@@ -235,7 +236,7 @@ export const deleteFavoriteActivityError = ( error ) => ({
 export const deleteFavoriteActivity = (id) => {
     return async (dispatch) => {
         dispatch(deleteFavoriteActivityRequest());
-        const endpoint = `http://localhost:3001/favActivity/${id}`;
+        const endpoint = `http://localhost:3001/favactivity/${id}`;
         try {
             const { data } = await axios.delete(endpoint);
             dispatch(deleteFavoriteActivitySuccess(data));

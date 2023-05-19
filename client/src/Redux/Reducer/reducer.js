@@ -4,7 +4,8 @@ import { SEARCH_COUNTRY_ERROR, SEARCH_COUNTRY_REQUEST, SEARCH_COUNTRY_SUCCESS,
         POST_ACTIVITY_ERROR, POST_ACTIVITY_REQUEST, POST_ACTIVITY_SUCCESS, POST_FAVORITE_COUNTRY_REQUEST, POST_FAVORITE_COUNTRY_SUCCESS, POST_FAVORITE_COUNTRY_ERROR, DELETE_FAVORITE_COUNTRY_REQUEST, DELETE_FAVORITE_COUNTRY_SUCCESS, DELETE_FAVORITE_COUNTRY_ERROR, POST_FAVORITE_ACTIVITY_REQUEST, POST_FAVORITE_ACTIVITY_SUCCESS, POST_FAVORITE_ACTIVITY_ERROR,
         REGISTER_REQUEST,
         REGISTER_SUCCESS,
-        REGISTER_FAILURE,} from "../Action-Types/action-types";
+        REGISTER_FAILURE,
+    } from "../Action-Types/action-types";
 
 const initialState = {
     error: null,
@@ -12,8 +13,6 @@ const initialState = {
     success: false,
     searchResults: [],
     allCountries: [],
-    myFavorite: [],
-    myFavoriteActivity: [],
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -107,7 +106,6 @@ const rootReducer = (state = initialState, action) => {
             case POST_FAVORITE_COUNTRY_REQUEST:
                 return {
                     ...state,
-                    loading: true,
                     error: false,
                     success: false,
                 };
@@ -117,7 +115,6 @@ const rootReducer = (state = initialState, action) => {
                     success: true,
                     loading: false,
                     error: false,
-                    myFavorite: action.payload,
                 }
             case POST_FAVORITE_COUNTRY_ERROR:
                 return {
@@ -130,7 +127,6 @@ const rootReducer = (state = initialState, action) => {
             case DELETE_FAVORITE_COUNTRY_REQUEST:
                 return {
                     ...state,
-                    loading: true,
                     error: false,
                     success: false,
                 };
@@ -140,7 +136,6 @@ const rootReducer = (state = initialState, action) => {
                     success: true,
                     loading: false,
                     error: false,
-                    myFavorite: action.payload,
                 };
             case DELETE_FAVORITE_COUNTRY_ERROR:
                 return {
@@ -149,6 +144,7 @@ const rootReducer = (state = initialState, action) => {
                     loading: false,
                     success: false,
                 }
+
 
             
             case POST_FAVORITE_ACTIVITY_REQUEST:
@@ -164,7 +160,6 @@ const rootReducer = (state = initialState, action) => {
                     success: true,
                     loading: false,
                     error: false,
-                    myFavoriteActivity: action.payload,
                 }
             case POST_FAVORITE_ACTIVITY_ERROR:
                 return {
