@@ -1,5 +1,6 @@
 import style from './Footer.module.css'
 import { FaInstagram, FaLinkedin, FaGithub } from "react-icons/fa"
+import { NavLink } from 'react-router-dom'
 
 const Footer = () => {
     return(
@@ -9,8 +10,8 @@ const Footer = () => {
                 <div className={style['footer-section']}>
                 <h3 className={style.h3Footer}>About us</h3>
                 <ul>
-                    <li><a href="#">Globe Gazers</a></li>
-                    <li><a href="#">About me</a></li>
+                    <li><NavLink to={'/register'}>Globe Gazers</NavLink></li>
+                    <li><NavLink to={'/register'}>About me</NavLink></li>
                 </ul>
                 </div>
 
@@ -18,20 +19,20 @@ const Footer = () => {
                 <div className={style['footer-section']}>
                 <h3>Contact us</h3>
                 <ul>
-                    <li><a href="#">martinezelias166@gmail.com</a></li>
-                    <li><a href="#">+54-11-4888-4304</a></li>
-                    <li><a href="#">Message</a></li>
-                    <li><a href="#">FAQ</a></li>
+                    <li>martinezelias166@gmail.com</li>
+                    <li>+54-11-4888-4304</li>
+                    <li><NavLink >Message</NavLink></li>
+                    <li><NavLink >FAQ</NavLink></li>
                 </ul>
                 </div>
 
                 <div className={style['footer-section']}>
                 <h3>Key Pages</h3>
                 <ul>
-                    <li><a href="#">Biggest countries</a></li>
-                    <li><a href="#">Most population</a></li>
-                    <li><a href="#">Countries</a></li>
-                    <li><a href="#">Favorites</a></li>
+                    <li><NavLink >Biggest countries</NavLink></li>
+                    <li><NavLink >Most population</NavLink></li>
+                    <li><NavLink >Countries</NavLink></li>
+                    <li><NavLink >Favorites</NavLink></li>
                 </ul>
                 </div>
                 

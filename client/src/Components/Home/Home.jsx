@@ -12,17 +12,11 @@ const Home = () => {
     const allCountries = useSelector(state => state.allCountries);
     const loading = useSelector(state => state.loading);
     const { pageNumber } = useParams(); // obtiene el número de página actual de la ruta
-    const [ currentPage, setCurrentPage ] = useState(pageNumber ? pageNumber - 1 : 0);
+    const [currentPage, setCurrentPage] = useState(pageNumber ? pageNumber - 1 : 0);
     
     useEffect(() => {
         dispatch(getAllCountries());
-    }, [dispatch])
-    
-    const handlePageChange = ({ selected }) => {
-        setCurrentPage(selected);
-        window.scrollTo(0, 0); // muestra la parte superior de la página
-    }
-    
+    }, [dispatch]);
     
     // número de elementos por página
     const itemsPerPage = 10;
@@ -31,7 +25,7 @@ const Home = () => {
     const offset = currentPage * itemsPerPage;
     
     // filtra los países por continente si hay un continente seleccionado
-    const [ selectedContinent, setSelectedContinent ] = useState(''); // estado para guardar el continente seleccionado
+    const [selectedContinent, setSelectedContinent] = useState(''); // estado para guardar el continente seleccionado
     let filteredCountries = allCountries;
     if (selectedContinent) {
         filteredCountries = allCountries.filter(country => country.continents.includes(selectedContinent));
@@ -40,6 +34,13 @@ const Home = () => {
 
     // calcula el número de páginas en función de la cantidad de elementos
     const pageCount = Math.ceil(filteredCountries.length / itemsPerPage);
+
+    const handlePageChange = ({ selected }) => {
+        setCurrentPage(selected);
+        window.scrollTo(0, 0); // muestra la parte superior de la página
+    }
+
+    // calcula el número de páginas en función de la cantidad de elementos
 
     
     //Filter continent
@@ -76,22 +77,19 @@ const Home = () => {
         setSelectedContinent(''); // resetea el continente seleccionado cuando se cambia la actividad seleccionada
         setCurrentPage(0); // resetea la página actual cuando se cambia la actividad seleccionada
     }
-
     useEffect(() => {
         const fetchActivities = async () => {
             try {
-                const response = await fetch(`http://localhost:3001/activities?season=${season}`);
+                const response = await fetch(`http://localhost:3001/activities?season=${selectedActivityName}`);
                 const data = await response.json();
                 setActivities(data);
             } catch (error) {
                 console.error(error);
             }
-        };
-    
-        fetchActivities();
-    }, [selectedActivityName]);
-    
-    console.log(activities)
+            };
+        
+            fetchActivities();
+        }, [selectedActivityName]);
 
     //Order By Letter
     const [aux, setAux] = useState(false);
@@ -125,11 +123,13 @@ const Home = () => {
                     <h2 className={style.h2Filter}>Activity</h2>
                     <select value={selectedActivityName} onChange={handleActivityChange}>
                         <option value="">All</option>
-                        {activities.map(activity => (
-                        <option key={activity.name} value={activity.name}>{activity.name}</option>
-                        ))}
+                        <option value="Summer">Summer</option>
+                        <option value="Autumn">Autumn</option>
+                        <option value="Winter">Winter</option>
+                        <option value="Spring">Spring</option>
                     </select>
                 </div>
+
 
                 <div className={style.filtro}>
                     <h2 className={style.h2Filter}>A-Z</h2>
@@ -150,17 +150,20 @@ const Home = () => {
                 </div>
             </div>
 
-            {selectedActivityName && activities.map(activity => (
-                <Activity 
-                    key={activity.id}
-                    id={activity.id}
-                    name={activity.name}
-                    difficulty={activity.difficulty}
-                    season={activity.season}
-                    duration={activity.duration}
-                />
-            ))}
-
+            <div className={style.contenedorActivities}>      
+                {selectedActivityName && activities
+                    .filter(activity => activity.season === selectedActivityName)
+                    .map(activity => (
+                        <Activity 
+                        key={activity.id}
+                        id={activity.id}
+                        name={activity.name}
+                        difficulty={activity.difficulty}
+                        season={activity.season}
+                        duration={activity.duration}
+                        />
+                    ))}       
+            </div>
 
             <div className={style.contenedorCountries}>
             {
@@ -181,9 +184,27 @@ const Home = () => {
                         )
                     }
                 })
-            }
-            
+            }  
             </div>
+                        
+            <div className={style.pagination}>
+                <button
+                    className={style.pageButton}
+                    onClick={() => handlePageChange({ selected: currentPage - 1 })}
+                    disabled={currentPage === 0}
+                >
+                    Back
+                </button>
+                <span className={style.spanPage}> {currentPage + 1}/{pageCount} </span>
+                <button
+                    className={style.pageButton}
+                    onClick={() => handlePageChange({ selected: currentPage + 1 })}
+                    disabled={currentPage === pageCount - 1}
+                >
+                    Next
+                </button>
+            </div>
+
         </div>
     )
 }

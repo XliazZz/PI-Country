@@ -5,7 +5,10 @@ import style from './Nav.module.css';
 import logo from '../../assert/logo.png'
 import { NavLink } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
-import { RiLogoutBoxLine } from "react-icons/ri"
+import { HiLogout } from "react-icons/hi"
+import { AiOutlineHome } from "react-icons/ai"
+import { IoCreateOutline } from "react-icons/io5"
+import { FiUsers } from "react-icons/fi"
 
 //HACER QUE NO SE PUEDA SELECCIONAR LA IMAGEN DEL LOGO, OSEA QUE NO SE PUEDA COPIAR APRENTADO CLICK
 const Nav = ({ logOut }) => {
@@ -15,22 +18,44 @@ const Nav = ({ logOut }) => {
     return(
         <nav className={style.navBar}>
 
+            { pathname === '/' && <img src={logo} alt={logo} />}
 
-            <img src={logo} alt={logo} />
             <NavLink to={'/home'}>
-                { pathname !== '/' && location.pathname !== "/login" && location.pathname !== "/register" &&  <button className={style.botonHome}>Home</button>}
+                {pathname !== '/' && location.pathname !== '/login' && location.pathname !== '/register' && (
+                <button className={style.buttonsNav}>
+                    <AiOutlineHome className={style.iconoNav} title="Home" />
+                </button>
+                )}
             </NavLink>
 
-            <NavLink to={'/activity'}>
-                { pathname !== '/' && location.pathname !== "/login" && location.pathname !== "/register" && <button>Create your activity</button>}
+            <NavLink to={'/about'}>
+                {pathname !== '/' && location.pathname !== '/login' && location.pathname !== '/register' && (
+                <button className={style.buttonsNav}>
+                    <FiUsers className={style.iconoNav} title="About me" />
+                </button>
+                )}
             </NavLink>
+            
+            <NavLink to={'/favorites/activity'}>
+                { pathname !== '/' && location.pathname !== "/login" && location.pathname !== "/register" && 
+                    <button className={style.buttonsNav}>
+                        Favorites activities
+                    </button>}
+            </NavLink>
+
+            { pathname !== '/' && pathname !== '/login' && pathname !== '/register' && <SearchBar />}
 
             <NavLink to={'/favorites/country'}>
-                { pathname !== '/' && location.pathname !== "/login" && location.pathname !== "/register" && <button>My favorites countries</button>}
+                { pathname !== '/' && location.pathname !== "/login" && location.pathname !== "/register" && 
+                    <button className={style.buttonsNav}>Favorites countries</button>}
             </NavLink>
 
-            <NavLink to={'/favorites/activity'}>
-                { pathname !== '/' && location.pathname !== "/login" && location.pathname !== "/register" && <button>My favorites activities</button>}
+
+            <NavLink to={'/activity'}>
+                { pathname !== '/' && location.pathname !== "/login" && location.pathname !== "/register" && (
+                <button  className={style.buttonsNav}>
+                    <IoCreateOutline className={style.iconoNav} title="Create Activity"/>
+                </button>)}
             </NavLink>
             
             <NavLink to={'/login'}>
@@ -43,13 +68,12 @@ const Nav = ({ logOut }) => {
 
             { location.pathname !== "/" && location.pathname !== "/login" && location.pathname !== "/register" && (
             <NavLink to="/">
-            <button className={style.logOut} onClick={logOut}>
-                <RiLogoutBoxLine />
+            <button className={style.buttonsNav} onClick={logOut}>
+                <HiLogout  className={style.iconoNav} title="Log Out"/>
             </button>
             </NavLink>
             )}
 
-            { pathname !== '/' && pathname !== '/login' && pathname !== '/register' && <SearchBar />}
         </nav>
     )
 };

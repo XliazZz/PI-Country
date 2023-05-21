@@ -1,5 +1,6 @@
 .elCapo{
-    background-color: #e2e2ee;
+    background-color: #141010;
+
 }
 
 .contenedorCountries {
@@ -11,4 +12,5 @@
     padding: 50px;
     min-width: 0;
     overflow: auto;
+
 }

@@ -19,22 +19,22 @@ const FavoriteActivity = () => {
             }
         }
         allCountriesFav();
-    }, [])
-
-    console.log(favs)
+    }, [favs])
 
     return (
-        <div>
-            {favs?.map(activity => (
-                <Activity 
-                key={activity.id}
-                id={activity.id}
-                name={activity.name}
-                difficulty={activity.difficulty}
-                duration={activity.duration}
-                season={activity.season}
-                />
-            ))}
+        <div className={style.elCapo}>
+            <div className={style.contenedorCountries}>
+                {favs?.map(activity => (
+                    <Activity 
+                    key={activity.id}
+                    id={activity.id}
+                    name={activity.name}
+                    difficulty={activity.difficulty}
+                    duration={activity.duration}
+                    season={activity.season}
+                    />
+                ))}
+            </div>
             </div>
         );
 };

@@ -13,6 +13,8 @@ import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import FavoriteActivity from './Components/FavoriteActivity/FavoriteActivity';
+import About from './Components/About/About';
+import Footer from './Components/Footer/Footer';
 
 function App() {
   const [access, setAccess] = useState(false);
@@ -64,6 +66,7 @@ function App() {
         <Route path='/register' element={<Register />}/>
         <Route path='/terms' element={<Terms />}/>
         <Route path='/login' element={<Login login={login} />}/>
+        <Route path='/about' element={<About />}/>
       </Routes>
     </div>
   );

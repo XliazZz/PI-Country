@@ -11,7 +11,7 @@
 .card{
     height: 500px;
     width: 600px;
-    background-color: rgb(27, 27, 27);
+    background-color: #3f3f3f;
     overflow: hidden;
     border-radius: 10px;
 }
@@ -91,5 +91,4 @@ p{
     color: white;
     border: none;
     cursor: pointer;
-
 }

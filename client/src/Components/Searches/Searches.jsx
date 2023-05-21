@@ -20,7 +20,8 @@ const Searches = ({ match }) => {
     console.log(searchResults)
 
     return (
-        <div className={style.contenedorCountries}>
+        <div className={style.divPadre}>
+            <div className={style.contenedorCountries}>
             {
                 searchResults[searchResults.length - 1]?.map((country, index) => {
                     if(loading) {
@@ -40,6 +41,7 @@ const Searches = ({ match }) => {
                     }
                 })
             }
+            </div>
         </div>
     )
 };

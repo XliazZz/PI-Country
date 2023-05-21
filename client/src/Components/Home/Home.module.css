@@ -1,6 +1,7 @@
 .elCapo{
-    background-color: #e2e2ee;
+    background: radial-gradient(circle at 24.1% 68.8%, rgb(50, 50, 50) 0%, rgb(0, 0, 0) 99.4%);
 }
+
 
 .contenedorCountries {
     display: grid;
@@ -19,8 +20,9 @@
     justify-content: center;
     align-items: center;
     text-align: center;
-    background-color: #cacad5;
+    background-color: #141010;
     padding: 2%;
+    color: white;
 }
 
 .filtro{
@@ -50,3 +52,49 @@ option{
     color: black;
 }
 
+
+.contenedorActivities{
+    display: grid;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 1fr;
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    column-gap: 50px;
+    row-gap: 30px;
+    padding: 50px;
+    min-width: 0;
+    overflow: auto; 
+}
+
+.pagination{
+    text-align: center;
+    align-items: center;
+    padding-top: 25px;
+    padding-bottom: 70px;
+    
+}
+
+.pageButton{
+    font-size: 1.5rem;
+    cursor: pointer;
+    background: none;
+    color: white;
+    border: none;
+    border: 3px solid white;
+    padding: 7px;
+}
+.pageButton:hover{
+    background-color: white;
+    color: #141010;
+}
+
+.spanPage{
+    font-size: 1.5rem;
+    color: white;
+}
+
+.pageButton:disabled{
+    cursor: not-allowed;
+    opacity: 0.3;
+}

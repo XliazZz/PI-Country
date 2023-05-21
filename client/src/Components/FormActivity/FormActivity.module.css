@@ -10,8 +10,8 @@
     align-items: center;
     background-repeat: no-repeat;
     background-size: cover;
-    background-color: #F5F5DC;
-}
+    background: radial-gradient(circle at 24.1% 68.8%, rgb(50, 50, 50) 0%, rgb(0, 0, 0) 99.4%)
+;}
 
 .seasons{
     width: 100%;
@@ -24,7 +24,7 @@
     flex-direction: column;
     width: 600px;
     border-radius: 10px;
-    background-color: #F5F5F5;
+    background-color: #141010;
     margin: 2%;
 }
 
@@ -38,36 +38,43 @@
     font-weight: 900;
     font-size: 120%;
     margin-bottom: 10px;
+    color: white;
 }
 
 .inputActivity{
     border: none;
-    border-bottom:1px solid black ;
+    border-bottom:1px solid white ;
     height: 27px;
-    background-color: #F5F5F5;
+    background: none;
+    color: white;
+}
+
+.inputActivity:focus{
+    outline: none;
+    border: none;
+    border-bottom: 1px solid white;
 }
 
 .difficultyButton{
     font-size: 163%;
-    background-color: #F5F5F5;
+    background: none;
     border: none;
     margin-top: 10px;
 }
+
 .starWhite{
-    color: gray;
+    color: white;
     padding-top: 5px;
 }
 .starGold{
     color: gold;
     padding-top: 5px;
-
 }
 
 .selectActivity{
     width: 38%;
     border-radius: 6px;
     border: 1px solid black;
-
 }
 
 .selectCountries{
@@ -85,12 +92,22 @@
 
 .selected{
     margin-left: 2%;
+    color: #F5F5F5;
 }
 
 .buttonCountry{
     margin-left: 2%;
     border-radius: 5px;
-    border: 1px solid black;
+    border: 1px solid white;
+    color:  white;
+    background:none;
+    cursor: pointer;
+}
+
+.buttonCountry:hover{
+    background-color: white;
+    color: black;
+
 }
 
 .divSubmit{
@@ -102,6 +119,13 @@
     margin-left: 30%;
     font-size: 25px;
     border-radius: 5px;
+    border: 1px solid black;
+    cursor: pointer;
+}
+
+.buttonCreate:hover{
+    background-color: #141010;
+    color: white;
     border: 1px solid black;
 }
 

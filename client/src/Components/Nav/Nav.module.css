@@ -1,9 +1,11 @@
 .navBar {
     display: flex;
     align-items: center;
-    justify-content:space-between;
+    justify-content: center;
     padding-right: 3%;
     margin: 0px;
+    background-color: #26282b;
+    height: 9vh;
 }
 
 .navBar img {
@@ -13,3 +15,22 @@
     width: 16%;
 }
 
+.buttonsNav{
+    color: white;
+    background: none;
+    border: none;
+    border-bottom: 1px solid white;
+    margin: 10px;
+    height: 40px;
+    cursor: pointer;
+}
+
+.buttonsNav:hover{
+    color: #71b9e9;
+}
+
+.iconoNav{
+    width: 33px;
+    height: 33px;
+    font-size: 23px;
+}
