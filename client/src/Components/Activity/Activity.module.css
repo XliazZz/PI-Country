@@ -41,3 +41,17 @@
 .h2Activity{
     font-weight: 100;
 }
+
+@media (max-width: 1200px) {
+    .divPadre {
+        width: 100%;
+    }
+    
+    .seasons {
+        width: 100%;
+    }
+    
+    .h2Activity {
+        font-size: 1.2rem;
+    }
+}

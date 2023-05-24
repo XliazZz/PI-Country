@@ -79,13 +79,14 @@ option{
     font-size: 1.5rem;
     cursor: pointer;
     background: none;
-    color: white;
+    color: #71b9e9;
     border: none;
-    border: 3px solid white;
+    border: 3px solid #71b9e9;
     padding: 7px;
 }
+
 .pageButton:hover{
-    background-color: white;
+    background-color: #71b9e9;
     color: #141010;
 }
 

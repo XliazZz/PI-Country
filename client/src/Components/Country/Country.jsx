@@ -54,7 +54,6 @@ const Country = ({ id, name, flags, continents, capital, subregion, area, popula
         allCountriesFav();
     }, [])
 
-
     useEffect(() => {
         favs?.forEach((fav) => {
             if (fav && fav.id === id) {
@@ -65,6 +64,7 @@ const Country = ({ id, name, flags, continents, capital, subregion, area, popula
 
     return(
         <div className={style.container}>
+
             <div className={style.buttonContainer}>
                 <button
                     className={style.buttonHeart}
@@ -73,6 +73,7 @@ const Country = ({ id, name, flags, continents, capital, subregion, area, popula
                     {isFav ? "❤️ " : "🤍"}
                 </button>
             </div>
+            
             <div className={style.card} onClick={toggleModal}>
                 <img className={style.imagen} src={flags} alt={name} />
                 <div className={style.intro}>
@@ -89,8 +90,7 @@ const Country = ({ id, name, flags, continents, capital, subregion, area, popula
                 </Modal>
             )}
         </div>
-
-    )
+    );
 };
 
 export default Country;

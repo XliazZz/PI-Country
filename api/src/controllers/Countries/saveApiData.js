@@ -4,12 +4,10 @@ const { Activity } = require('../../db');
 
 const countries = async function() {
     try {
-        const api = await axios('https://restcountries.com/v3/all'); 
-        
+        const api = await axios('https://rest-countries.up.railway.app/v3/all'); 
         if (!api.data || api.data.length === 0) {
             throw new Error('No countries were found in the API response.');
         }
-    
         const promises = api.data.map(async element => {
             try {
             const [country, created] = await Country.findOrCreate({
@@ -25,28 +23,20 @@ const countries = async function() {
                 },
                 row: false
             });
-    
             console.log(`Country ${created ? 'created' : 'updated'}: ${country.name}`);
-
             return country;
-            
             } catch (error) {
             throw new Error(`Error processing country ${element.cca3}: ${error.message}`);
             }
         });
-    
         let results = await Promise.all(promises);
-    
-
         let allCountries = [];
         results.map(cou => { allCountries = allCountries.concat(cou) })
-
         return allCountries;
-        } catch (error) {
+    } catch (error) {
         throw new Error(`Error getting countries: ${error.message}`);
-    }
+    };
 };
-
 
 const getCountriesApi = async function() {
     try{
@@ -63,9 +53,9 @@ const getCountriesApi = async function() {
         })
         return getCountries
     } catch(error){
-        return { error: error.message }
-    }
-}
+        throw new Error('Could not fetch countries: ' + error.message);
+    };
+};
 
 
 module.exports = {

@@ -31,7 +31,7 @@ const SearchBar = () => {
                 <button className={style.iconoBar} disabled={!name} onClick={handleClick}><FaSearch /></button>
             </NavLink>
         </>
-    )
+    );
 };
 
 export default SearchBar;

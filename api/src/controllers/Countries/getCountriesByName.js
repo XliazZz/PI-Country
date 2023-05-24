@@ -13,12 +13,10 @@ const getCountriesByName = async (name) => {
         if(countries.length === 0) {
             throw new Error(`No countries found with name: ${name}`)
         }
-
         return countries;
-
     } catch (error) {
         throw new Error(`Error searching for countries: ${error.message}`);
-    }
+    };
 };
 
 module.exports = getCountriesByName;

@@ -13,15 +13,13 @@ const getCountriesById = async (idPais) =>  {
             }
             }
         });
-    
         if (!country) {
             throw new Error(`Country with id ${idPais} not found`);
         }
-    
         return country;
+    } catch(error) {
+        throw new Error('Could not fetch country by ID: ' + error.message);
+    };
+};
 
-        } catch(error) {
-        return { error: error.message }
-    }
-}
 module.exports = getCountriesById;

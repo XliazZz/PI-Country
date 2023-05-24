@@ -37,14 +37,11 @@ const Home = () => {
 
     const handlePageChange = ({ selected }) => {
         setCurrentPage(selected);
-        window.scrollTo(0, 0); // muestra la parte superior de la página
+        window.scrollTo(0, 0);
     }
-
-    // calcula el número de páginas en función de la cantidad de elementos
 
     
     //Filter continent
-
     const [continents, setContinents] = useState([]);
 
     useEffect(() => {
@@ -65,12 +62,11 @@ const Home = () => {
         setSelectedContinent(event.target.value);
         setCurrentPage(0); // resetea la página actual cuando se cambia el continente seleccionado
     }
+    
 
-    //-------------------------------------------------
+    //Filter activity
     const [selectedActivityName, setSelectedActivityName] = useState('');
-
     const [activities, setActivities] = useState([]);
-
 
     const handleActivityChange = (event) => {
         setSelectedActivityName(event.target.value);
@@ -91,6 +87,7 @@ const Home = () => {
             fetchActivities();
         }, [selectedActivityName]);
 
+
     //Order By Letter
     const [aux, setAux] = useState(false);
 
@@ -99,8 +96,8 @@ const Home = () => {
         setAux(true);
     };
     
-    //Order By Population
 
+    //Order By Population
     const handleOrderByPopulation = (event) => {
         dispatch(orderByPopulation(event.target.value));
         setAux(true);
@@ -108,7 +105,9 @@ const Home = () => {
 
     return (
         <div className={style.elCapo}>
+
             <div className={style.filterContainer}>
+
                 <div className={style.filtro}>
                     <h2 className={style.h2Filter}>Continents</h2>
                     <select value={selectedContinent} onChange={handleContinentChange}>
@@ -130,12 +129,10 @@ const Home = () => {
                     </select>
                 </div>
 
-
                 <div className={style.filtro}>
                     <h2 className={style.h2Filter}>A-Z</h2>
                     <select onChange={handleOrderByLetter}>
                         <option value="A">Ascending</option>
-
                         <option value="D">Descending</option>
                     </select>
                 </div>
@@ -144,10 +141,10 @@ const Home = () => {
                     <h2 className={style.h2Filter}>Population</h2>
                     <select onChange={handleOrderByPopulation}>
                         <option value="A">Ascending</option>
-
                         <option value="D">Descending</option>
                     </select>
                 </div>
+
             </div>
 
             <div className={style.contenedorActivities}>      
@@ -186,7 +183,7 @@ const Home = () => {
                 })
             }  
             </div>
-                        
+
             <div className={style.pagination}>
                 <button
                     className={style.pageButton}
@@ -206,7 +203,7 @@ const Home = () => {
             </div>
 
         </div>
-    )
-}
+    );
+};
 
 export default Home;

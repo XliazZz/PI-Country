@@ -1,7 +1,7 @@
 const { Op } = require('sequelize');
 const { Activity } = require('../../db');
 
-const filterActivityByName = async (season) => {
+const filterActivityBySeason = async (season) => {
     try {
         const activities = await Activity.findAll({
             where: {
@@ -19,10 +19,10 @@ const filterActivityByName = async (season) => {
                 },
             ],
             });
-            return activities;
-        } catch (error) {
-            throw new Error(`Error searching for activities: ${error.message}`);
-        }
+        return activities;
+    } catch (error) {
+        throw new Error(`Error searching for activities: ${error.message}`);
+    };
 };
 
-module.exports = filterActivityByName;
+module.exports = filterActivityBySeason;

@@ -10,7 +10,6 @@ import { AiOutlineHome } from "react-icons/ai"
 import { IoCreateOutline } from "react-icons/io5"
 import { FiUsers } from "react-icons/fi"
 
-//HACER QUE NO SE PUEDA SELECCIONAR LA IMAGEN DEL LOGO, OSEA QUE NO SE PUEDA COPIAR APRENTADO CLICK
 const Nav = ({ logOut }) => {
     const { pathname } = useLocation();
     const location = useLocation();
@@ -68,14 +67,14 @@ const Nav = ({ logOut }) => {
 
             { location.pathname !== "/" && location.pathname !== "/login" && location.pathname !== "/register" && (
             <NavLink to="/">
-            <button className={style.buttonsNav} onClick={logOut}>
-                <HiLogout  className={style.iconoNav} title="Log Out"/>
-            </button>
+                <button className={style.buttonsNav} onClick={logOut}>
+                    <HiLogout  className={style.iconoNav} title="Log Out"/>
+                </button>
             </NavLink>
             )}
 
         </nav>
-    )
+    );
 };
 
 export default Nav;

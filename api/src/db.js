@@ -30,7 +30,7 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
-const { Country, Activity, User, FavoriteCountry, FavoriteActivity } = sequelize.models;
+const { Country, Activity, User, FavoriteCountry, FavoriteActivity, Message } = sequelize.models;
 
 // Aca vendrian las relaciones
 Country.belongsToMany(Activity, { through: 'activity_countries' });
@@ -45,6 +45,8 @@ FavoriteCountry.belongsToMany(User, { through: 'favorite_countries' });
 User.belongsToMany(FavoriteActivity, { through: 'favorite_activity' });
 FavoriteActivity.belongsToMany(User, { through: 'favorite_activity' });
 
+User.hasMany(Message, { foreignKey: 'userId' });
+Message.belongsTo(User, { foreignKey: 'userId' });
 
 const user = User.build(); 
 console.log(typeof user.setFavoriteCountries === 'function'); // Debería imprimir true si el método está disponible

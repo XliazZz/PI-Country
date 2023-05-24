@@ -4,6 +4,7 @@ import style from './FavoriteCountry.module.css';
 import axios from "axios";
 import { useState, useEffect } from 'react';
 import { useSelector } from "react-redux";
+import GoBackButton from '../GoBackButton/GoBackButton';
 
 const FavoriteCountry = () => {
     const loading = useSelector(state => state.loading)
@@ -24,6 +25,11 @@ const FavoriteCountry = () => {
 
     return(
         <div  className={style.elCapo}>
+
+            <div className={style.buttonBack}>
+                <GoBackButton/>
+            </div>
+            
             <div className={style.contenedorCountries}>
             {
                 favs?.map(country => {
@@ -47,8 +53,9 @@ const FavoriteCountry = () => {
                 })
             }
             </div>
+
         </div>
-    )
+    );
 };
 
 export default FavoriteCountry;

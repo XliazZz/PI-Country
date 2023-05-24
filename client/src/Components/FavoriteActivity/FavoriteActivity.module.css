@@ -15,4 +15,10 @@
     padding: 50px;
     min-width: 0;
     overflow: auto;
+    margin-bottom: 143px;
+
+}
+
+.buttonBack{
+    margin: 25px;
 }

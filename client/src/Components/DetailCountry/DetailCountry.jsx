@@ -1,11 +1,8 @@
-import { useParams } from "react-router";
 import { useState, useEffect } from "react";
 import axios from 'axios';
 import style from './DetailCountry.module.css'
 
 const DetailCountry = ({id}) => {
-    
-    // const { id } = useParams();
     const [country, setCountry] = useState({});
     
     useEffect(() => {
@@ -26,17 +23,19 @@ const DetailCountry = ({id}) => {
         return setCountry({});
     }, [id]);
 
-
     const renderActivities = (activities) => {
-        return activities && activities.length > 0
-        ? `It is also known for its activities such as ${activities.map(activity => activity.name).join(', ')}` 
-        : ''; 
-    }
-
-    console.log(country.activities);
+        return activities && activities.length > 0 ? (
+            <div>
+                It is also known for its activities such as <span className={style.activities}>{activities.map(activity => activity.name).join(', ')}</span>
+            </div>
+            ) : (
+            ''
+        );
+    };
 
     return(
         <div className={style.DivDetail}>
+
             <div className={style.card}>
                 <img className={style.flagDetail} src={country.flags} alt={country.name} />
                 <div className={style.detail}>
@@ -48,8 +47,9 @@ const DetailCountry = ({id}) => {
                     " It is one of the less populated countries in the world."}{renderActivities(country.activities)}</span>
                 </div>
             </div>
+            
         </div>
-    )
-}
+    );
+};
 
 export default DetailCountry;

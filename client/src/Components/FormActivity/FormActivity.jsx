@@ -11,22 +11,17 @@ import autumn from '../../assert/Season/autumn.jpg';
 import winter from '../../assert/Season/winter.jpg';
 import seasons from '../../assert/Season/seasons.jpg';
 
-
 const FormActivity = () => {
-
     const dispatch = useDispatch();
     const allCountries = useSelector(state => state.allCountries);
 
-    //Errors
-    const [errors, setErrors] = useState({});
-
-    //ActivityData
+    
     useEffect(() => {
         dispatch(getAllCountries());
     }, [dispatch])
-
+    
     const [selectedCountries, setSelectedCountries] = useState([]);
-
+    const [errors, setErrors] = useState({});
     const [activityData, setActivityData] = useState({
         name: '',
         difficulty: 0,
@@ -60,19 +55,19 @@ const FormActivity = () => {
                 id: option.value,
                 name: option.text
             }
-            });
+        });
         
-            const newSelectedCountries = selectedOptions.filter(option => {
+        const newSelectedCountries = selectedOptions.filter(option => {
             return !selectedCountries.some(country => country.id === option.id)
-            })
+        })
         
-            setSelectedCountries([...selectedCountries, ...newSelectedCountries]);
+        setSelectedCountries([...selectedCountries, ...newSelectedCountries]);
         
-            setActivityData({
+        setActivityData({
             ...activityData,
             selectedCountries: [...selectedCountries, ...newSelectedCountries],
-            })
-        };
+        })
+    };
     
     const handleCountryDelete = (countryId) => {
         const updatedSelectedCountries = selectedCountries.filter(
@@ -91,27 +86,25 @@ const FormActivity = () => {
         setShowSuccessMessage(true);
     };
     
-    //Actividad creada
     const [showSuccessMessage, setShowSuccessMessage] = useState(false);
-
 
     return(
         <div className={style.padre}>
 
-
             <form className={style.form}>
 
-            <img 
-                className={style.seasons}
-                src={
-                    activityData.season === 'Summer' ? summer 
-                    : activityData.season === 'Autumn' ? autumn 
-                    : activityData.season === 'Winter' ? winter 
-                    : activityData.season === 'Spring' ? spring 
-                    : seasons
-                } 
-                alt="" 
-            />
+                <img 
+                    className={style.seasons}
+                    src={
+                        activityData.season === 'Summer' ? summer 
+                        : activityData.season === 'Autumn' ? autumn 
+                        : activityData.season === 'Winter' ? winter 
+                        : activityData.season === 'Spring' ? spring 
+                        : seasons
+                    } 
+                    alt="" 
+                />
+
                 <div className={style.divLabelInput}>
                     <label className={style.labelActivity} htmlFor="name">Name</label>
                     <div className={style.inputErrorContainer}>
@@ -142,7 +135,7 @@ const FormActivity = () => {
                             {difficulty <= activityData.difficulty ? <AiFillStar className={style.starGold}/> : <AiOutlineStar className={style.starWhite} />}
                         </button>
                         ))}
-                {errors.difficulty && <div className={style.error}>{errors.difficulty}</div>}
+                        {errors.difficulty && <div className={style.error}>{errors.difficulty}</div>}
                     </div>
                 </div>
 
@@ -205,6 +198,7 @@ const FormActivity = () => {
                     </select>
                     {errors.selectedCountries && <div className={style.error}>{errors.selectedCountries}</div>}
                 </div>
+
                 <h4 className={style.selected}>
                     You selected:
                     {selectedCountries.map((country) => (
@@ -237,10 +231,9 @@ const FormActivity = () => {
                             </button>
                         </div>
                     )}
-
             </form>
         </div>
-    )
-}
+    );
+};
 
 export default FormActivity;

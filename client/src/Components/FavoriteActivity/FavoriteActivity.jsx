@@ -2,13 +2,12 @@ import Activity from '../Activity/Activity';
 import style from './FavoriteActivity.module.css';
 import axios from "axios";
 import { useState, useEffect } from 'react';
-import { useSelector } from "react-redux";
+import GoBackButton from '../GoBackButton/GoBackButton';
 
 const FavoriteActivity = () => {
-    const loading = useSelector(state => state.loading);
     const [favs, setFavs] = useState([]);
 
-        useEffect(() => {
+    useEffect(() => {
         const allCountriesFav = async () => {
             try {
                 const respose = await axios.get('http://localhost:3001/favactivity');
@@ -23,6 +22,11 @@ const FavoriteActivity = () => {
 
     return (
         <div className={style.elCapo}>
+
+            <div className={style.buttonBack}>
+                <GoBackButton/>
+            </div>
+
             <div className={style.contenedorCountries}>
                 {favs?.map(activity => (
                     <Activity 
@@ -35,8 +39,9 @@ const FavoriteActivity = () => {
                     />
                 ))}
             </div>
-            </div>
-        );
+            
+        </div>
+    );
 };
 
 export default FavoriteActivity;

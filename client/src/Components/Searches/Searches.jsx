@@ -4,23 +4,25 @@ import { useEffect } from "react";
 import Country from "../Country/Country";
 import CountryLoading from "../CountryLoading/CountryLoading";
 import style from './Searches.module.css'
+import GoBackButton from '../GoBackButton/GoBackButton';
 
 const Searches = ({ match }) => {
     const dispatch = useDispatch(); 
 
     const searchResults = useSelector(state => state.searchResults);
     const loading = useSelector(state => state.loading);
-    const success = useSelector(state => state.success);
-    const error = useSelector(state => state.error);
 
     useEffect(() => {
         dispatch(searchCountries(match))
     }, [dispatch, match])
 
-    console.log(searchResults)
-
     return (
         <div className={style.divPadre}>
+
+            <div className={style.buttonBack}>
+                <GoBackButton/>
+            </div>
+            
             <div className={style.contenedorCountries}>
             {
                 searchResults[searchResults.length - 1]?.map((country, index) => {
@@ -43,7 +45,7 @@ const Searches = ({ match }) => {
             }
             </div>
         </div>
-    )
+    );
 };
 
 export default Searches;

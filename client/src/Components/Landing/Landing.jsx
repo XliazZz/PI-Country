@@ -14,12 +14,7 @@ import { IoMdCreate } from "react-icons/io"
 import { MdOutlineFavorite } from "react-icons/md"
 import { FaSearchLocation } from "react-icons/fa"
 import { RiCompassDiscoverFill } from "react-icons/ri"
-import Footer from '../Footer/Footer';
 import { NavLink } from "react-router-dom"
-
-// 
-    //  HACER LAS REDIRECCIONES DEL FOOTER 
-// 
 
 const images = [
     {
@@ -78,7 +73,6 @@ const Landing = () => {
     const [currentImageIndex, setCurrentImageIndex] = useState(0);  //Estado para cambiar la imagen
     const [imageLoaded, setImageLoaded] = useState(false); //Estado para controlar texto
 
-
     useEffect(() => {
         const intervalId = setInterval(() => {
         setCurrentImageIndex(currentImageIndex =>
@@ -94,6 +88,7 @@ const Landing = () => {
 
     return (
         <div className={style.contenedorLanding}>
+
             <img
                 className={style.imagesCapital}
                 src={currentImage.src}
@@ -123,12 +118,11 @@ const Landing = () => {
             </div>
 
 
-            <div className={style.contenedorUl}
-            >
+            <div className={style.contenedorUl}>
+
                 <h2 className={style.h2UlLanding}>Discover what sets Globe Gazers apart</h2>
 
                 <ul className={style.ulLanding}>
-
                     <li className={style.liLanding}> 
                         <IoMdCreate className={style.iconLanding} /> 
                         <h3> Create all your activities </h3>
@@ -156,11 +150,10 @@ const Landing = () => {
                         <h3>Discover new countries</h3>
                         <span className={style.spanLanding}>This option invites you to venture into the unknown and discover new places.</span>
                     </li>
-
                 </ul>
 
             </div>
-            <Footer />
+            
         </div>
     );
 };

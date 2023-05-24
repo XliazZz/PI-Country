@@ -10,7 +10,7 @@
 
 .card{
     height: 500px;
-    width: 600px;
+    width: 610px;
     background-color: #3f3f3f;
     overflow: hidden;
     border-radius: 10px;
@@ -26,7 +26,7 @@
 
 .intro{
     width: 100%;
-    padding: 10px;
+    padding: 5px;
     box-sizing: border-box;
     position: relative;
     bottom: 0;
@@ -91,4 +91,25 @@ p{
     color: white;
     border: none;
     cursor: pointer;
+    border-radius: 100px;
+}
+
+@media (max-width: 768px) {
+    .card {
+        height: 400px;
+        width: 80%;
+    }
+
+    .imagen {
+        height: 250px;
+        padding-top: 30px;
+    }
+
+    h1 {
+        font-size: 30px;
+    }
+
+    p {
+        font-size: 20px;
+    }
 }

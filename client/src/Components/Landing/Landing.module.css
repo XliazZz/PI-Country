@@ -69,6 +69,11 @@
     cursor: pointer;
 }
 
+.registerLanding:hover{
+    background-color: #141010;
+    color: #4F98CA;
+}
+
 .signLanding{
     margin: 2%;
     background-color: #00767c;    
@@ -79,6 +84,11 @@
     color: white;
     width: 15%;
     cursor: pointer;
+}
+
+.signLanding:hover{
+    background-color: white;
+    color: #00767c;
 }
 
 /* LISTA */

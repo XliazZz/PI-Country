@@ -9,16 +9,13 @@ const postFavoriteActivity = async (activity) => {
             duration: activity.duration,
             season: activity.season
         });
-
         // Asociar el FavoriteCountry al User
         const user = await User.findOne(); // Obtiene un usuario existente (puedes adaptarlo según tus necesidades)
         await user.addFavoriteActivity(newFavoriteActivity);
-
         return newFavoriteActivity;
-
     } catch (error) {
-        return { error: error.message };
-    }
-}
+        throw new Error('Could not create favorite activity: ' + error.message);
+    };
+};
 
 module.exports = postFavoriteActivity;

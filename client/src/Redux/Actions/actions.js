@@ -20,7 +20,11 @@ import { SEARCH_COUNTRY_REQUEST, SEARCH_COUNTRY_SUCCESS, SEARCH_COUNTRY_ERROR,
     REGISTER_REQUEST,
     REGISTER_SUCCESS,
     REGISTER_FAILURE,
+    MESSAGE_REQUEST,
+    MESSAGE_SUCCESS,
+    MESSAGE_ERROR,
 } from "../Action-Types/action-types";
+
 
 // SearchBar
 export const searchRequest = () => {
@@ -49,15 +53,15 @@ export const searchCountries = (name) => async (dispatch, getState) => {
     const existingCountry = searchResults.find((country) => country.name === name);
     
     try {
-        dispatch(searchRequest()); // Activar el estado de carga
+        dispatch(searchRequest()); 
         const response = await axios.get(`http://localhost:3001/countries/byName?name=${name}`);
         const data = response.data;
-        dispatch(searchSuccess(data)); // Actualizar el estado con los datos de la búsqueda exitosa
+        dispatch(searchSuccess(data)); 
     } catch (error) {
-        dispatch(searchError(error.message)); // Actualizar el estado con el error de búsqueda
+        dispatch(searchError(error.message)); 
     }
 };
-//-------------------------------------------
+
 
 //Home
 export const countryRequest = () => ({
@@ -87,6 +91,7 @@ export const getAllCountries = () => {
     };
 };
 
+
 //Order
 export const orderByLetter = (order) => {
     return {
@@ -101,6 +106,7 @@ export const orderByPopulation = (order) => {
         payload: order,
     };
 };
+
 
 //Post Activity
 export const postActivityRequest = () => ({
@@ -129,6 +135,7 @@ export const postActivity = (activity) => {
         };
     };
 };
+
 
 //Post favorite country
 export const postFavoriteCountryRequest = () => ({
@@ -218,6 +225,7 @@ export const postFavoriteActivity = (activity) => {
     };
 };
 
+
 //Delete favorite activity
 export const deleteFavoriteActivityRequest = () => ({
     type: DELETE_FAVORITE_ACTIVITY_REQUEST,
@@ -246,36 +254,31 @@ export const deleteFavoriteActivity = (id) => {
     };
 };
 
-//Register
-export const registerRequest = () => {
-    return {
-        type: REGISTER_REQUEST,
-    };
-};
 
-export const registerSuccess = (data) => {
-    return {
-        type: REGISTER_SUCCESS,
-        payload: data,
-    };
-};
+//Message 
+export const messageRequest = () => ({
+    type: MESSAGE_REQUEST,
+});
 
-export const registerFailure = (error) => {
-    return {
-        type: REGISTER_FAILURE,
-        payload: error,
-    };
-};
+export const messageSuccess = ( message ) => ({
+    type: MESSAGE_SUCCESS,
+    payload: message,
+});
 
-export const registerUser = (userData) => {
+export const messageError = ( error ) => ({
+    type: MESSAGE_ERROR,
+    payload: error,
+});
+
+export const postMessage = ( message ) => {
     return async (dispatch) => {
+        dispatch(messageRequest());
+        const endpoint = 'http://localhost:3001/messages';
         try {
-            dispatch(registerRequest());
-            const endpoint = 'http://localhost:3001/user';
-            const response = await axios.post(endpoint, userData);
-            dispatch(registerSuccess(response.data));
+            const { data } = await axios.post(endpoint, message);
+            dispatch(messageSuccess(data));
         } catch (error) {
-            dispatch(registerFailure(error.message));
-        }
+            dispatch(messageError(error.message));
         };
+    };
 };

@@ -14,10 +14,13 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import FavoriteActivity from './Components/FavoriteActivity/FavoriteActivity';
 import About from './Components/About/About';
+import Message from './Components/Message/Message';
 import Footer from './Components/Footer/Footer';
+import FAQ from './Components/FAQ/FAQ';
 
 function App() {
   const [access, setAccess] = useState(false);
+  const [failed, setFailed] = useState(null); 
   const { pathname } = useLocation();
   const navigate = useNavigate();
 
@@ -34,14 +37,19 @@ function App() {
       const { data } = await axios.get(endpoint);
       const { access } = data;
       setAccess(access);
+      setFailed('')
       access && navigate('/home');
     } catch (error) {
-      console.error(error);
+      setFailed('An error occurred during login. Please try again.');
     }
   };
 
   useEffect(() => {
-    if (!access && pathname !== '/login' && pathname !== '/' && pathname !== "/register") {
+    setFailed(null); // Reset the error message when the route changes
+  }, [window.location.pathname]);
+
+  useEffect(() => {
+    if (!access && pathname !== '/login' && pathname !== '/' && pathname !== "/register" && pathname !== '/faq' && pathname !== '/message' && pathname !== '/terms') {
       navigate('/login');
     } else if (access && (pathname === '/login' || pathname === '/')) {
       navigate('/home');
@@ -54,7 +62,7 @@ function App() {
 
   return (
     <div className="App">
-      <Nav logOut={logOut} />
+    {!(pathname === '/message' && !access || pathname === '/faq' && !access || pathname === '/terms' && !access || pathname === '/about' && !access) && pathname !== '/register' && pathname !== '/login' && <Nav logOut={logOut} />}
       <Routes>
         <Route path='/' element={<Landing/>}/>
         <Route path='/home' element={<Home/>}/>
@@ -65,9 +73,12 @@ function App() {
         <Route path='/favorites/activity' element={<FavoriteActivity />}/>
         <Route path='/register' element={<Register />}/>
         <Route path='/terms' element={<Terms />}/>
-        <Route path='/login' element={<Login login={login} />}/>
+        <Route path='/login' element={<Login login={login} failed={failed}  />}/>
         <Route path='/about' element={<About />}/>
+        <Route path='/message' element={<Message />}/>
+        <Route path='/faq' element={<FAQ />}/>
       </Routes>
+      { pathname !== '/register' && pathname !== '/login' && <Footer />}
     </div>
   );
 }

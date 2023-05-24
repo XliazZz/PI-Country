@@ -8,7 +8,7 @@ const CountryLoading = () => {
                 <div className={style.nameLoading}></div>
             </div>
         </div>
-    )
+    );
 };
 
 export default CountryLoading;
